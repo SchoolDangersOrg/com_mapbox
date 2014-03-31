@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fields>
+		<fieldset name="params" label="COM_MAPBOX_OPTIONS_FIELDSET_LEGEND">
+			<field name="default_id" type="menuitem" default="" label="COM_MAPBOX_DEFAULT_ROUTE_ID_LABEL" description="COM_MAPBOX_DEFAULT_ROUTE_ID_DESC" />
+		</fieldset>
+		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL">
+			<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC" class="inputbox" validate="rules" filter="rules" component="com_mapbox" section="component" />
+		</fieldset>
+	</fields>
+</config>

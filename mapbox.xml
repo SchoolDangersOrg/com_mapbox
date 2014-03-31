@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>COM_MAPBOX</name>
+	<creationDate>2012-03-23</creationDate>
+	<author>Alonzo C. Turner</author>
+	<authorUrl>http://www.mapboxproductions.com</authorUrl>
+	<authorEmail>alonzo.turner@mapboxproductions.com</authorEmail>
+	<copyright>COM_MAPBOX_COMPONENT_COPYRIGHT</copyright>
+	<license>COM_MAPBOX_COMPONENT_LICENSE</license>
+	<version>1.0.1</version>
+	<description><![CDATA[COM_MAPBOX_COMPONENT_DESCRIPTION]]></description>
+	<scriptfile>install.php</scriptfile>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+	<files folder="site">
+		<filename>controller.php</filename>
+		<folder>controllers</folder>
+		<filename>index.html</filename>
+		<folder>language</folder>
+		<folder>models</folder>
+		<filename>router.php</filename>
+		<filename>mapbox.php</filename>
+		<folder>views</folder>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_mapbox.ini</language>
+		<language tag="en-US">language/en-US/en-US.com_mapbox.ini</language>
+	</languages>
+	<administration>
+		<menu>COM_MAPBOX_MENU_ITEM_ROOT</menu>
+		<languages folder="admin">
+			<language tag="en-US">language/en-US/en-US.com_mapbox.ini</language>
+			<language tag="en-US">language/en-US/en-US.com_mapbox.sys.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_mapbox.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_mapbox.sys.ini</language>
+		</languages>
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<filename>index.html</filename>
+			<folder>language</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<filename>mapbox.php</filename>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+	</administration>
+</extension>

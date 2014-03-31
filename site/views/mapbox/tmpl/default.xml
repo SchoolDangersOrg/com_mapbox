@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_MAPBOX_LAYOUT_DEFAULT">
+		<message>COM_MAPBOX_LAYOUT_DEFAULT_MSG</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request">
+			<field name="id" label="COM_MAPBOX_REQUEST_ID_LABEL" description="COM_MAPBOX_REQUEST_ID_DESC" type="sql" query="SELECT `mapbox_id`, `mapbox_name` FROM `#__mapbox` ORDER BY `ordering`" key_field="mapbox_id" value_field="mapbox_name" />
+		</fieldset>
+	</fields>
+</metadata>
