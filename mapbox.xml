@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="2.5" method="upgrade">
 	<name>COM_MAPBOX</name>
-	<creationDate>2012-03-23</creationDate>
+	<creationDate>2014-03-31</creationDate>
 	<author>Alonzo C. Turner</author>
-	<authorUrl>http://www.mapboxproductions.com</authorUrl>
-	<authorEmail>alonzo.turner@mapboxproductions.com</authorEmail>
+	<authorUrl>https://www.subtextproductions.com</authorUrl>
+	<authorEmail>alonzo.turner@subtextproductions.com</authorEmail>
 	<copyright>COM_MAPBOX_COMPONENT_COPYRIGHT</copyright>
 	<license>COM_MAPBOX_COMPONENT_LICENSE</license>
-	<version>1.0.1</version>
+	<version>1.0</version>
 	<description><![CDATA[COM_MAPBOX_COMPONENT_DESCRIPTION]]></description>
 	<scriptfile>install.php</scriptfile>
 	<install>
