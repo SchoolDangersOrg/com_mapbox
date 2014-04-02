@@ -1,1 +1,2 @@
-DROP TABLE IF EXISTS `#__mapbox`;
+DROP TABLE IF EXISTS `#__mapbox_maps`;
+DROP TABLE IF EXISTS `#__mapbox_markers`;

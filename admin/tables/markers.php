@@ -2,24 +2,22 @@
 // NO DIRECT ACCESS
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class TableMapbox extends JTable
+class TableMarkers extends JTable
 {
 	/** @var int Primary Key */
-	var $map_id			    = null;
+	var $marker_id			= null;
+	/** @var string Category Name */
+	var $marker_name		= null;
 	/** @var string SEO Alias */
-	var $map_alias			= null;
-	/** @var string Mapbox API map ID */
-	var $map_api_key       = null;
-	/** @var string Maps Name */
-	var $map_name			= null;
-	/** @var string Maps Description */
-	var $map_description	= null;
-	/** @var string Text field for storage of JSON data */
+	var $marker_alias		= null;
+	/** @var float Marker Latitude */
+	var $marker_lat			= null;
+	/** @var float Marker Longitude */
+	var $marker_lng			= null;
+	/** @var string Info Window Content */
+	var $marker_description	= null;
+	/** @var string Text field for storage of JParameter */
 	var $attribs			= null;
-	/** @var string Meta Description */
-	var $meta_description	= null;
-	/** @var string Meta Keywords */
-	var $meta_keywords		= null;
 	/** @var int */
 	var $ordering			= null;
 	/** @var int */
@@ -34,9 +32,11 @@ class TableMapbox extends JTable
 	var $modified_by        = 0;
 	/** @var int User ID */
 	var $created_by         = 0;
+	/** @var int */
+	var $map_id			= null;
 	
 	public function TableMapbox(&$db){
-		parent::__construct('#__mapbox_maps', 'map_id', $db);
+		parent::__construct('#__mapbox_markers', 'marker_id', $db);
 	}
 	
 	public function bind($array, $ignore=''){
@@ -47,7 +47,6 @@ class TableMapbox extends JTable
 				$array['attribs'] = $registry->toString();
 			}
 		}
-		
 		return parent::bind($array, $ignore);
 	}
 	
@@ -60,6 +59,8 @@ class TableMapbox extends JTable
 	}
 	
 	public function store($updateNulls = false){
+	    $user = JFactory::getUser();
+	    $this->modified_by
 		if(!parent::store($updateNulls)){
 			return false;
 		}
