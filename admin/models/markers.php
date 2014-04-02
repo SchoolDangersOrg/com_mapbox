@@ -170,7 +170,19 @@ class MapboxModelMarkers extends JModelAdmin
   		$this->setState('filter_order', $app->getUserStateFromRequest($option.'.'.$scope.'.filter_order', 'filter_order', 'ordering', 'cmd'));
   		$this->setState('filter_order_Dir', $app->getUserStateFromRequest($option.'.'.$scope.'.filter_order_Dir', 'filter_order_Dir', 'asc', 'string'));
 	 }
-
+	/**
+	 * A protected method to get a set of ordering conditions.
+	 *
+	 * @param   JTable  $table  A JTable object.
+	 *
+	 * @return  array  An array of conditions to add to ordering queries.
+	 *
+	 * @since   1.0
+	 */
+	protected function getReorderConditions($table)
+	{
+		return array("map_id = ".$table->map_id);
+	}
     /**
      * Method to retrieve a JPagination object
      *
