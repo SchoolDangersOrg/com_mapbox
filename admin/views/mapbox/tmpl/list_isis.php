@@ -1,5 +1,6 @@
 <?php
-	JHtml::_('behavior.multiselect');
+	$uri = JURI::getInstance();
+	$base = $uri->root();
 	JHtml::_('formbehavior.chosen', 'select');
 	JHtml::_('bootstrap.tooltip');
 	$user = JFactory::getUser();

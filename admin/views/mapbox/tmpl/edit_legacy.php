@@ -1,7 +1,13 @@
 <?php
 	defined('_JEXEC') or die('Restricted access');
-	JHtml::_('behavior.tooltip');
-	JHtml::_('behavior.formvalidation');
+	$uri = JURI::getInstance();
+	$base = $uri->root();
+	if(JFactory::getApplication()->getTemplate() == "isis"){
+		echo $this->loadTemplate('isis');
+	}else{
+		JHtml::_('behavior.modal');
+		JHtml::_('behavior.tooltip');
+		JHtml::_('behavior.formvalidation');
 ?>
 
 <script type="text/javascript">
@@ -12,7 +18,7 @@
 			return re_uint.test(value);
 		});
 		document.formvalidator.setHandler('string', function(value){
-			re_string = /^([\w\d\s-_\.,]+)?$/;
+			re_string = /^([\w\d\s-_\.,&'#]+)?$/;
 			return re_string.test(value);
 		});
 		document.formvalidator.setHandler('cmd', function(value){
@@ -46,7 +52,7 @@
 	<input type="hidden" name="mapbox_id" value="<?php echo $this->form->getValue('mapbox_id'); ?>" />
 	<?php echo JHTML::_('form.token')."\n"; ?>
 	<div id="editcell">
-		<div class="span9 pull-left">
+		<div class="width-60 fltlft">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_BASIC'); ?></legend>
 				<dl>
@@ -61,7 +67,7 @@
 				<?php echo $this->form->getInput('mapbox_description'); ?>
 			</fieldset>
 		</div>
-		<div class="span3 pull-left">
+		<div class="width-40 fltlft">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_OPTIONS'); ?></legend>
 				<dl>
@@ -92,3 +98,4 @@
 		</div>
 	</div>
 </form>
+<?php }
