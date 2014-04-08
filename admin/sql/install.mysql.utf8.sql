@@ -13,8 +13,7 @@ CREATE TABLE `#__mapbox_maps` (
 	`access` TINYINT(3) DEFAULT 0,
 	`modified_by` INT(11) UNSIGNED DEFAULT 0,
 	`created_by` INT(11) UNSIGNED DEFAULT 0,
-	PRIMARY KEY (`map_id`),
-	KEY `user_id` (`user_id`)
+	PRIMARY KEY (`map_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `#__mapbox_markers`;
