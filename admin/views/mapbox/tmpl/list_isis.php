@@ -10,7 +10,7 @@
 	$sortFields['published'] = JText::_('COM_MAPBOX_LIST_PUBLISHED_LABEL');
 	$sortFields['ordering'] = JText::_('COM_MAPBOX_LIST_ORDERING_LABEL');
 	$sortFields['s.access'] = JText::_('COM_MAPBOX_LIST_ACCESS_LABEL');
-	$sortFields['mapbox_id'] = JText::_('COM_MAPBOX_LIST_ID_LABEL');
+	$sortFields['map_id'] = JText::_('COM_MAPBOX_LIST_ID_LABEL');
 	$saveOrder = $this->filter->filter_order == 'ordering';
 	if ($saveOrder)
 	{
@@ -95,7 +95,7 @@
 					<?php echo JText::_('COM_MAPBOX_LIST_DESCRIPTION_LABEL'); ?>
 				</th>
 				<th width="1%">
-					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_ID_LABEL', 'mapbox_id', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_ID_LABEL', 'map_id', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 			</tr>
 		</thead>
@@ -104,8 +104,8 @@
 		$k = 0;
 		for($i=0; $i < count($this->items); $i++){
 			$row		= $this->items[$i];
-			$checked	= JHtml::_('grid.id', $i, $row->mapbox_id);
-			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&mapbox_id='. $row->mapbox_id.'&'.JSession::getFormToken().'=1');
+			$checked	= JHtml::_('grid.id', $i, $row->map_id);
+			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&map_id='. $row->map_id.'&'.JSession::getFormToken().'=1');
 			$canCreate  = $user->authorise('core.create',     'com_mapbox');
 			$canEdit    = $user->authorise('core.edit',       'com_mapbox');
 			$canCheckin = $user->authorise('core.manage',     'com_checkin') || $row->checked_out == $user_id || $row->checked_out == 0;
@@ -159,7 +159,7 @@
 					<?php $words = explode(" ", strip_tags($row->mapbox_description)); echo implode(" ", array_splice($words, 0, 55)); ?>
 				</td>
 				<td>
-					<?php echo $row->mapbox_id; ?>
+					<?php echo $row->map_id; ?>
 				</td>
 			</tr>
 			<?php

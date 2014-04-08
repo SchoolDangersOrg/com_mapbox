@@ -31,7 +31,7 @@
 				return false;
 			}
 		}
-		<?php echo $this->form->getField('mapbox_description')->save(); ?>
+		<?php echo $this->form->getField('map_description')->save(); ?>
 		someForm.task.value = sometask;
 		someForm.submit();
 	}
