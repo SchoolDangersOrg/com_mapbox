@@ -6,7 +6,7 @@
 	$user = JFactory::getUser();
 	$user_id = $user->get('id');
 	$sortFields = array();
-	$sortFields['mapbox_name'] = JText::_('COM_MAPBOX_LIST_MAPBOX_NAME_LABEL');
+	$sortFields['map_name'] = JText::_('COM_MAPBOX_LIST_MAP_NAME_LABEL');
 	$sortFields['published'] = JText::_('COM_MAPBOX_LIST_PUBLISHED_LABEL');
 	$sortFields['ordering'] = JText::_('COM_MAPBOX_LIST_ORDERING_LABEL');
 	$sortFields['s.access'] = JText::_('COM_MAPBOX_LIST_ACCESS_LABEL');
@@ -86,7 +86,7 @@
 					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_PUBLISHED_LABEL', 'published', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 				<th class="title" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'mapbox_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 				<th class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_ACCESS_LABEL', 's.access', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
@@ -142,12 +142,12 @@
 					<?php
 					if($row->checked_out){
 						echo JHtml::_('jgrid.checkedout', $i, $row->editor, $row->checked_out_time, 'mapbox.', $canCheckin);
-						echo "<span class=\"title\">".JText::_( $row->mapbox_name)."</span>";
+						echo "<span class=\"title\">".JText::_( $row->map_name)."</span>";
 					}else{
 						if($canEdit || $canEditOwn){
-							echo "<a href=\"{$link}\">" . htmlspecialchars($row->mapbox_name, ENT_QUOTES) . "</a>";
+							echo "<a href=\"{$link}\">" . htmlspecialchars($row->map_name, ENT_QUOTES) . "</a>";
 						}else{
-							echo "<span class=\"title\">".JText::_( $row->mapbox_name)."</span>";
+							echo "<span class=\"title\">".JText::_( $row->map_name)."</span>";
 						}
 					}
 					?>
@@ -156,7 +156,7 @@
 					<?php echo $row->access; ?>
 				</td>
 				<td>
-					<?php $words = explode(" ", strip_tags($row->mapbox_description)); echo implode(" ", array_splice($words, 0, 55)); ?>
+					<?php $words = explode(" ", strip_tags($row->map_description)); echo implode(" ", array_splice($words, 0, 55)); ?>
 				</td>
 				<td>
 					<?php echo $row->map_id; ?>

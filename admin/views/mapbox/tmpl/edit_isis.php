@@ -24,8 +24,8 @@
 		var someForm = document.forms.adminForm;
 		var re_blank = /^(\W*)$/;
 		if(sometask != 'mapbox.cancel'){
-			if(re_blank.test($('jform_mapbox_alias').value)){
-				$('jform_mapbox_alias').value = $('jform_mapbox_name').value.replace(/\W/g, '-').toLowerCase();
+			if(re_blank.test($('jform_map_alias').value)){
+				$('jform_map_alias').value = $('jform_map_name').value.replace(/\W/g, '-').toLowerCase();
 			}
 			if(!document.formvalidator.isValid(someForm)){
 				return false;
@@ -56,9 +56,9 @@
 				<?php } ?>
 				</dl>
 				<div class="clr"></div>
-				<?php echo $this->form->getLabel('mapbox_description'); ?>
+				<?php echo $this->form->getLabel('map_description'); ?>
 				<div class="clr"></div>
-				<?php echo $this->form->getInput('mapbox_description'); ?>
+				<?php echo $this->form->getInput('map_description'); ?>
 			</fieldset>
 		</div>
 		<div class="span3 pull-left">
@@ -75,15 +75,6 @@
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_PARAMS'); ?></legend>
 				<dl>
 				<?php foreach($this->form->getFieldset('params') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php } ?>
-				</dl>
-			</fieldset>
-			<fieldset class="adminform">
-				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_METADATA'); ?></legend>
-				<dl>
-				<?php foreach($this->form->getFieldset('metadata') as $field){ ?>
 					<dt><?php echo $field->label; ?></dt>
 					<dd><?php echo $field->input; ?></dd>
 				<?php } ?>
