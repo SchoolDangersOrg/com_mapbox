@@ -25,14 +25,14 @@
 		var someForm = document.forms.adminForm;
 		var re_blank = /^(\W*)$/;
 		if(sometask != 'mapbox.cancel'){
-			if(re_blank.test($('jform_mapbox_alias').value)){
-				$('jform_mapbox_alias').value = $('jform_mapbox_name').value.replace(/\W/g, '-').toLowerCase();
+			if(re_blank.test($('jform_map_alias').value)){
+				$('jform_map_alias').value = $('jform_map_name').value.replace(/\W/g, '-').toLowerCase();
 			}
 			if(!document.formvalidator.isValid(someForm)){
 				return false;
 			}
 		}
-		<?php echo $this->form->getField('mapbox_description')->save(); ?>
+		<?php echo $this->form->getField('map_description')->save(); ?>
 		someForm.task.value = sometask;
 		someForm.submit();
 	}
@@ -44,7 +44,7 @@
 	<input type="hidden" name="chosen" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="hidemainmenu" value="0" />
-	<input type="hidden" name="mapbox_id" value="<?php echo $this->form->getValue('mapbox_id'); ?>" />
+	<input type="hidden" name="map_id" value="<?php echo $this->form->getValue('map_id'); ?>" />
 	<?php echo JHTML::_('form.token')."\n"; ?>
 	<div id="editcell">
 		<div class="span9 pull-left">
@@ -57,9 +57,9 @@
 				<?php } ?>
 				</dl>
 				<div class="clr"></div>
-				<?php echo $this->form->getLabel('mapbox_description'); ?>
+				<?php echo $this->form->getLabel('map_description'); ?>
 				<div class="clr"></div>
-				<?php echo $this->form->getInput('mapbox_description'); ?>
+				<?php echo $this->form->getInput('map_description'); ?>
 			</fieldset>
 		</div>
 		<div class="span3 pull-left">

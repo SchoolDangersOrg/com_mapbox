@@ -42,7 +42,7 @@
 	<input type="hidden" name="chosen" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="hidemainmenu" value="0" />
-	<input type="hidden" name="mapbox_id" value="<?php echo $this->form->getValue('mapbox_id'); ?>" />
+	<input type="hidden" name="map_id" value="<?php echo $this->form->getValue('map_id'); ?>" />
 	<?php echo JHTML::_('form.token')."\n"; ?>
 	<div id="editcell">
 		<div class="width-60 fltlft">

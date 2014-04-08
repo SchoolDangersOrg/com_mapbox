@@ -103,7 +103,7 @@
 		$k = 0;
 		for($i=0; $i < count($this->items); $i++){
 			$row		= $this->items[$i];
-			$checked	= JHtml::_('grid.id', $i, $row->mapbox_id);
+			$checked	= JHtml::_('grid.id', $i, $row->map_id);
 			$link		= JRoute::_('index.php?option=com_mapbox&task=markers.edit&marker_id='. $row->marker_id.'&'.JSession::getFormToken().'=1');
 			$canCreate  = $user->authorise('core.create',     'com_mapbox');
 			$canEdit    = $user->authorise('core.edit',       'com_mapbox');
@@ -158,7 +158,7 @@
 					<?php $words = explode(" ", strip_tags($row->marker_description)); echo implode(" ", array_splice($words, 0, 55)); ?>
 				</td>
 				<td>
-					<?php echo $row->mapbox_id; ?>
+					<?php echo $row->map_id; ?>
 				</td>
 			</tr>
 			<?php

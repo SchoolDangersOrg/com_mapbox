@@ -38,7 +38,7 @@
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this);" />
 				</th>
 				<th class="title" nowrap="nowrap">
-					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'mapbox_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 				<th width="5%" nowrap="nowrap">
 					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_PUBLISHED_LABEL', 'published', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
@@ -63,8 +63,8 @@
 		$k = 0;
 		for($i=0; $i < count($this->items); $i++){
 			$row		= $this->items[$i];
-			$checked	= JHTML::_('grid.id', $i, $row->mapbox_id);
-			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&mapbox_id='. $row->mapbox_id.'&'.JSession::getFormToken().'=1');
+			$checked	= JHTML::_('grid.id', $i, $row->map_id);
+			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&map_id='. $row->map_id.'&'.JSession::getFormToken().'=1');
 			?>
 			<tr class="row<?php echo $k; ?>">
 				<td>
@@ -76,10 +76,10 @@
 				<td  nowrap="nowrap">
 					<?php
 					if(JTable::isCheckedOut(JFactory::getUser()->get('id'), $row->checked_out)){
-						echo JHTML::_('grid.checkedout', $row, $i, 'mapbox_id');
-						echo JText::_( $row->mapbox_name);
+						echo JHTML::_('grid.checkedout', $row, $i, 'map_id');
+						echo JText::_( $row->map_name);
 					}else{
-						echo "<a href=\"{$link}\">" . htmlspecialchars($row->mapbox_name, ENT_QUOTES) . "</a>";
+						echo "<a href=\"{$link}\">" . htmlspecialchars($row->map_name, ENT_QUOTES) . "</a>";
 					}
 					?>
 				</td>
@@ -95,10 +95,10 @@
 					<?php echo $row->access; ?>
 				</td>
 				<td>
-					<?php echo implode(" ", array_splice(explode(" ", strip_tags($row->mapbox_description)), 0, 55)); ?>
+					<?php echo implode(" ", array_splice(explode(" ", strip_tags($row->map_description)), 0, 55)); ?>
 				</td>
 				<td>
-					<?php echo $row->mapbox_id; ?>
+					<?php echo $row->map_id; ?>
 				</td>
 			</tr>
 			<?php
