@@ -25,6 +25,7 @@ class MapboxViewMapbox extends JViewLegacy
 		$this->setLayout($layout);
 		switch($layout){
 		case "list":
+			MapboxHelper::addSubmenu($input->get('view', 'mapbox'));
 			JToolBarHelper::title(JText::_('COM_MAPBOX_VIEW_MAPBOX_LIST_TITLE'), 'generic.png');
 			JToolBarHelper::addNew('mapbox.add', 'JTOOLBAR_NEW');
 			JToolBarHelper::editList('mapbox.edit', 'JTOOLBAR_EDIT', true);

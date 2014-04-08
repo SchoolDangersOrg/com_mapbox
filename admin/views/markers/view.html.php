@@ -25,6 +25,7 @@ class MapboxViewMarkers extends JViewLegacy
 		$this->setLayout($layout);
 		switch($layout){
 		case "list":
+			MapboxHelper::addSubmenu($input->get('view', 'markers'));
 			JToolBarHelper::title(JText::_('COM_MAPBOX_VIEW_MARKERS_LIST_TITLE'), 'generic.png');
 			JToolBarHelper::addNew('markers.add', 'JTOOLBAR_NEW');
 			JToolBarHelper::editList('markers.edit', 'JTOOLBAR_EDIT', true);

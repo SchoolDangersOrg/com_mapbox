@@ -41,6 +41,10 @@
 	</languages>
 	<administration>
 		<menu>COM_MAPBOX_MENU_ITEM_ROOT</menu>
+		<submenu>
+			<menu img="/administrator/components/com_slideshow/images/map.png" view="mapbox" layout="list">COM_MAPBOX_SUBMENU_MAPS</menu>
+			<menu img="/administrator/components/com_slideshow/images/rosette.png" view="markers" layout="list">COM_MAPBOX_SUBMENU_MARKERS</menu>
+		</submenu>
 		<languages folder="admin">
 			<language tag="en-US">language/en-US/en-US.com_mapbox.ini</language>
 			<language tag="en-US">language/en-US/en-US.com_mapbox.sys.ini</language>
@@ -53,6 +57,7 @@
 			<filename>controller.php</filename>
 			<folder>controllers</folder>
 			<folder>helpers</folder>
+			<folder>images</folder>
 			<filename>index.html</filename>
 			<folder>language</folder>
 			<folder>models</folder>
