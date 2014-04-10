@@ -8,8 +8,6 @@ class TableMarkers extends JTable
 	var $marker_id			= null;
 	/** @var string Category Name */
 	var $marker_name		= null;
-	/** @var string SEO Alias */
-	var $marker_alias		= null;
 	/** @var float Marker Latitude */
 	var $marker_lat			= null;
 	/** @var float Marker Longitude */
