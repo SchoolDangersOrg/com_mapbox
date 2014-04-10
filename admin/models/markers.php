@@ -78,10 +78,10 @@ class MapboxModelMarkers extends JModelAdmin
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
-		if($form = $this->loadForm('com_mapbox.mapbox', 'mapbox', array('control'=>'jform', 'load_data'=>$loadData))){
+		if($form = $this->loadForm('com_mapbox.markers', 'markers', array('control'=>'jform', 'load_data'=>$loadData))){
 			return $form;
 		}
-		JError::raiseError(0, JText::sprintf('JLIB_FORM_INVALID_FORM_OBJECT', 'mapbox'));
+		JError::raiseError(0, JText::sprintf('JLIB_FORM_INVALID_FORM_OBJECT', 'markers'));
 		return null;
 	}
 
@@ -126,7 +126,7 @@ class MapboxModelMarkers extends JModelAdmin
     	$row		= $this->getTable();
     	$filter		= array();
     	if($search = addslashes($mainframe->getUserState($option.'.'.$scope.'.filter_search'))){
-    		$filter[] = "`mapbox_name` LIKE '%{$search}%'";
+    		$filter[] = "`map_name` LIKE '%{$search}%'";
     	}
     	if(!$ordering = $mainframe->getUserState($option.'.'.$scope.'.filter_order')){
     		$ordering = "`ordering`";

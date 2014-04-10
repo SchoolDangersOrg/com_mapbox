@@ -61,8 +61,8 @@
 		$k = 0;
 		for($i=0; $i < count($this->items); $i++){
 			$row		= $this->items[$i];
-			$checked	= JHTML::_('grid.id', $i, $row->map_id);
-			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&map_id='. $row->map_id.'&'.JSession::getFormToken().'=1');
+			$checked	= JHTML::_('grid.id', $i, $row->marker_id);
+			$link		= JRoute::_('index.php?option=com_mapbox&task=markers.edit&marker_id='. $row->marker_id.'&'.JSession::getFormToken().'=1');
 			?>
 			<tr class="row<?php echo $k; ?>">
 				<td>
@@ -75,14 +75,14 @@
 					<?php
 					if(JTable::isCheckedOut(JFactory::getUser()->get('id'), $row->checked_out)){
 						echo JHTML::_('grid.checkedout', $row, $i, 'map_id');
-						echo JText::_( $row->map_name);
+						echo JText::_( $row->marker_name);
 					}else{
-						echo "<a href=\"{$link}\">" . htmlspecialchars($row->map_name, ENT_QUOTES) . "</a>";
+						echo "<a href=\"{$link}\">" . htmlspecialchars($row->marker_name, ENT_QUOTES) . "</a>";
 					}
 					?>
 				</td>
 				<td align="center">
-					<?php echo JHtml::_('jgrid.published', $row->published, $i, 'mapbox.', true, 'cb'); ?>
+					<?php echo JHtml::_('jgrid.published', $row->published, $i, 'markers.', true, 'cb'); ?>
 				</td>
 				<td class="order">
 					<span><?php echo $this->page->orderUpIcon( $i, ($this->page->getRowOffset($i) > 1), 'mapbox.orderup', 'Move Up'); ?></span>
