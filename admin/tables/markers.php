@@ -33,7 +33,7 @@ class TableMarkers extends JTable
 	/** @var int */
 	var $map_id			= null;
 	
-	public function TableMapbox(&$db){
+	public function TableMarkers(&$db){
 		parent::__construct('#__mapbox_markers', 'marker_id', $db);
 	}
 	
