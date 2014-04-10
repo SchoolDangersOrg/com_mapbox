@@ -31,7 +31,7 @@ class TableMarkers extends JTable
 	/** @var int User ID */
 	var $created_by         = 0;
 	/** @var int */
-	var $map_id			= null;
+	var $map_id             = null;
 	
 	public function TableMarkers(&$db){
 		parent::__construct('#__mapbox_markers', 'marker_id', $db);
@@ -58,7 +58,7 @@ class TableMarkers extends JTable
 	
 	public function store($updateNulls = false){
 	    $user = JFactory::getUser();
-	    $this->modified_by
+	    $this->modified_by = $user->get('id');
 		if(!parent::store($updateNulls)){
 			return false;
 		}
