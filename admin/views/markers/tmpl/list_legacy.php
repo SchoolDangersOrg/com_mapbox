@@ -63,6 +63,7 @@
 			$row		= $this->items[$i];
 			$checked	= JHTML::_('grid.id', $i, $row->marker_id);
 			$link		= JRoute::_('index.php?option=com_mapbox&task=markers.edit&marker_id='. $row->marker_id.'&'.JSession::getFormToken().'=1');
+			$desc       = explode(" ", strip_tags($row->map_description));
 			?>
 			<tr class="row<?php echo $k; ?>">
 				<td>
@@ -73,7 +74,7 @@
 				</td>
 				<td  nowrap="nowrap">
 					<?php
-					if(JTable::isCheckedOut(JFactory::getUser()->get('id'), $row->checked_out)){
+					if($row->checked_out){
 						echo JHTML::_('grid.checkedout', $row, $i, 'map_id');
 						echo JText::_( $row->marker_name);
 					}else{
@@ -93,7 +94,7 @@
 					<?php echo $row->access; ?>
 				</td>
 				<td>
-					<?php echo implode(" ", array_splice(explode(" ", strip_tags($row->map_description)), 0, 55)); ?>
+					<?php echo implode(" ", array_splice($desc, 0, 55)); ?>
 				</td>
 				<td>
 					<?php echo $row->map_id; ?>
