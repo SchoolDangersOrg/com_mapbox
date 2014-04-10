@@ -85,8 +85,8 @@
 					<?php echo JHtml::_('jgrid.published', $row->published, $i, 'markers.', true, 'cb'); ?>
 				</td>
 				<td class="order">
-					<span><?php echo $this->page->orderUpIcon( $i, ($this->page->getRowOffset($i) > 1), 'mapbox.orderup', 'Move Up'); ?></span>
-					<span><?php echo $this->page->orderDownIcon( $i, count($this->items), true, 'mapbox.orderdown', 'Move Down'); ?></span>
+					<span><?php echo $this->page->orderUpIcon( $i, ($this->page->getRowOffset($i) > 1), 'markers.orderup', 'Move Up'); ?></span>
+					<span><?php echo $this->page->orderDownIcon( $i, count($this->items), true, 'markers.orderdown', 'Move Down'); ?></span>
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td align="center">
