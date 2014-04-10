@@ -86,15 +86,6 @@
 				<?php } ?>
 				</dl>
 			</fieldset>
-			<fieldset class="adminform">
-				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_METADATA'); ?></legend>
-				<dl>
-				<?php foreach($this->form->getFieldset('metadata') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php } ?>
-				</dl>
-			</fieldset>
 		</div>
 	</div>
 </form>
