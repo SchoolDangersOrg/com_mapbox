@@ -125,6 +125,7 @@ class MapboxModelMarkers extends JModelAdmin
     	$scope		= $this->getName();
     	$row		= $this->getTable();
     	$filter		= array();
+    	$sql        = $this->getDbo()->getQuery(true);
     	if($search = addslashes($mainframe->getUserState($option.'.'.$scope.'.filter_search'))){
     		$filter[] = "`map_name` LIKE '%{$search}%'";
     	}
@@ -134,14 +135,17 @@ class MapboxModelMarkers extends JModelAdmin
     	if(!$order_dir = $mainframe->getUserState($option.'.'.$scope.'.filter_order_Dir')){
     		$order_dir = "ASC";
     	}
-		$sql = "SELECT SQL_CALC_FOUND_ROWS s.*, v.title AS `access`, u.`name` AS `editor` ".
-		"FROM `{$row->getTableName()}` s ".
-		"LEFT JOIN `#__viewlevels` v ON s.`access` = v.`id` ".
-		"LEFT JOIN `#__users` u ON s.`checked_out` = u.`id`";
+    	
+    	$sql->select("SQL_CALC_FOUND_ROWS marker.*, map.map_name, map.map_description");
+    	$sql->select("v.title AS `access`, u.`name` AS `editor`");
+    	$sql->from("`#__mapbox_markers` AS marker");
+    	$sql->join("left", "`#__mapbox_maps` AS map USING(map_id)");
+    	$sql->join("left", "`#__viewlevels` v ON marker.`access` = v.`id`");
+    	$sql->join("left", "`#__users` u ON marker.`checked_out` = u.`id`");
 		if(count($filter)){
-			$sql .= " WHERE " . implode(" AND ", $filter);
+		    $sql->where($filter);
 		}
-		$sql .= " ORDER BY {$ordering} {$order_dir}";
+		$sql->order("{$ordering} {$order_dir}");
 		$this->_data = $this->_getList($sql, $this->getState('limitstart'), $this->getState('limit'));
 
     	return $this->_data;
