@@ -97,7 +97,7 @@
 					<?php echo implode(" ", array_splice($desc, 0, 55)); ?>
 				</td>
 				<td>
-					<?php echo $row->map_id; ?>
+					<?php echo $row->marker_id; ?>
 				</td>
 			</tr>
 			<?php
