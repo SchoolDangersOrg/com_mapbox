@@ -72,7 +72,7 @@
 				</td>
 				<td  nowrap="nowrap">
 					<?php
-					if(JTable::isCheckedOut(JFactory::getUser()->get('id'), $row->checked_out)){
+					if($row->checked_out){
 						echo JHTML::_('grid.checkedout', $row, $i, 'map_id');
 						echo JText::_( $row->map_name);
 					}else{
