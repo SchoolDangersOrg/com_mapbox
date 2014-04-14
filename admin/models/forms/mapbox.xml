@@ -3,9 +3,9 @@
 	<fields>
 		<fieldset name="base">
 			<field name="map_id" type="hidden" filter="uint" />
-			<field name="map_name" type="text" class="validate-string" filter="string" required="true" size="64" label="COM_MAPBOX_MAP_NAME_LABEL" description="COM_MAPBOX_MAP_NAME_DESC" />
-			<field name="map_api_key" type="text" class="" filter="" required="true" size="32" maxlength="32" label="COM_MAPBOX_MAP_API_KEY_LABEL" description="COM_MAPBOX_MAP_API_KEY_DESC" />
-			<field name="map_alias" type="text" class="validate-cmd" filter="cmd" required="true" size="64" label="COM_MAPBOX_MAP_ALIAS_LABEL" description="COM_MAPBOX_MAP_ALIAS_DESC" />
+			<field name="map_name" type="text" class="validate-string" filter="string" required="true" size="32" maxlength="64" label="COM_MAPBOX_MAP_NAME_LABEL" description="COM_MAPBOX_MAP_NAME_DESC" />
+			<field name="map_api_key" type="text" required="true" size="32" maxlength="32" label="COM_MAPBOX_MAP_API_KEY_LABEL" description="COM_MAPBOX_MAP_API_KEY_DESC" />
+			<field name="map_alias" type="text" class="validate-cmd" filter="cmd" required="true" size="32" maxlength="64" label="COM_MAPBOX_MAP_ALIAS_LABEL" description="COM_MAPBOX_MAP_ALIAS_DESC" />
 		</fieldset>
 		<fieldset name="editor">
 			<field name="map_description" type="editor" filter="safehtml" label="COM_MAPBOX_MAP_DESCRIPTION_LABEL" description="COM_MAPBOX_MAP_DESCRIPTION_DESC" />
