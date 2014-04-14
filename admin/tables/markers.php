@@ -50,7 +50,7 @@ class TableMarkers extends JTable
 	
 	public function check(){
 		// ASSIGN ORDERING IF NECESSARY
-		if(is_null($this->ordering)){
+		if(!$this->ordering){
 			$this->ordering = $this->getNextOrder("map_id = ".$this->map_id);
 		}
 		return true;
@@ -62,7 +62,7 @@ class TableMarkers extends JTable
 		if(!parent::store($updateNulls)){
 			return false;
 		}
-		$this->reorder();
+		$this->reorder("map_id = ".$this->map_id);
 		return true;
 	}
 }

@@ -130,13 +130,13 @@ class MapboxModelMarkers extends JModelAdmin
     		$filter[] = "`map_name` LIKE '%{$search}%'";
     	}
     	if(!$ordering = $mainframe->getUserState($option.'.'.$scope.'.filter_order')){
-    		$ordering = "`ordering`";
+    		$ordering = "map.ordering, marker.ordering";
     	}
     	if(!$order_dir = $mainframe->getUserState($option.'.'.$scope.'.filter_order_Dir')){
     		$order_dir = "ASC";
     	}
     	
-    	$sql->select("SQL_CALC_FOUND_ROWS marker.*, map.map_name, map.map_description");
+    	$sql->select("SQL_CALC_FOUND_ROWS marker.*, map.map_name, map.map_description, map.ordering, marker.ordering AS `ordering`");
     	$sql->select("v.title AS `access`, u.`name` AS `editor`");
     	$sql->from("`#__mapbox_markers` AS marker");
     	$sql->join("left", "`#__mapbox_maps` AS map USING(map_id)");
@@ -171,7 +171,7 @@ class MapboxModelMarkers extends JModelAdmin
   		$this->setState('limit', $app->getUserStateFromRequest($option.'.'.$scope.'.limit', 'limit', $app->getCfg('list_limit'), 'int'));
   		$this->setState('limitstart', $app->getUserStateFromRequest($option.'.'.$scope.'.limitstart', 'limitstart', 0, 'int'));
   		$this->setState('filter_search', $app->getUserStateFromRequest($option.'.'.$scope.'.filter_search', 'filter_search', '', 'string'));
-  		$this->setState('filter_order', $app->getUserStateFromRequest($option.'.'.$scope.'.filter_order', 'filter_order', 'ordering', 'cmd'));
+  		$this->setState('filter_order', $app->getUserStateFromRequest($option.'.'.$scope.'.filter_order', 'filter_order', 'map.ordering, marker.ordering', 'raw'));
   		$this->setState('filter_order_Dir', $app->getUserStateFromRequest($option.'.'.$scope.'.filter_order_Dir', 'filter_order_Dir', 'asc', 'string'));
 	 }
 	/**
