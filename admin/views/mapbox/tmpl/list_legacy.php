@@ -1,12 +1,8 @@
 <?php
 	defined('_JEXEC') or die('Restricted access');
-	JHtml::_('behavior.modal');
 	JHtml::_('behavior.tooltip');
 	$uri = JURI::getInstance();
 	$base = $uri->root();
-	if(JFactory::getApplication()->getTemplate() == "isis"){
-		echo $this->loadTemplate('isis');
-	}else{
 ?>
 
 <form action="index.php" method="post" name="adminForm" id="adminForm">
@@ -115,4 +111,3 @@
 		</tfoot>
 	</table>
 </form>
-<?php }

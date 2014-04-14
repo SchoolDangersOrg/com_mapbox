@@ -2,12 +2,8 @@
 	defined('_JEXEC') or die('Restricted access');
 	$uri = JURI::getInstance();
 	$base = $uri->root();
-	if(JFactory::getApplication()->getTemplate() == "isis"){
-		echo $this->loadTemplate('isis');
-	}else{
-		JHtml::_('behavior.modal');
-		JHtml::_('behavior.tooltip');
-		JHtml::_('behavior.formvalidation');
+    JHtml::_('behavior.tooltip');
+    JHtml::_('behavior.formvalidation');
 ?>
 
 <script type="text/javascript">
@@ -89,4 +85,3 @@
 		</div>
 	</div>
 </form>
-<?php }
