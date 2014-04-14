@@ -61,6 +61,7 @@
 			$row		= $this->items[$i];
 			$checked	= JHTML::_('grid.id', $i, $row->map_id);
 			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&map_id='. $row->map_id.'&'.JSession::getFormToken().'=1');
+			$desc       = explode(" ", strip_tags($row->map_description));
 			?>
 			<tr class="row<?php echo $k; ?>">
 				<td>
@@ -91,7 +92,7 @@
 					<?php echo $row->access; ?>
 				</td>
 				<td>
-					<?php echo implode(" ", array_splice(explode(" ", strip_tags($row->map_description)), 0, 55)); ?>
+					<?php echo implode(" ", array_splice($desc, 0, 55)); ?>
 				</td>
 				<td>
 					<?php echo $row->map_id; ?>

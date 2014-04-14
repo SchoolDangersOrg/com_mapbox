@@ -63,7 +63,7 @@
 			$row		= $this->items[$i];
 			$checked	= JHTML::_('grid.id', $i, $row->marker_id);
 			$link		= JRoute::_('index.php?option=com_mapbox&task=markers.edit&marker_id='. $row->marker_id.'&'.JSession::getFormToken().'=1');
-			$desc       = explode(" ", strip_tags($row->map_description));
+			$desc       = explode(" ", strip_tags($row->marker_description));
 			?>
 			<tr class="row<?php echo $k; ?>">
 				<td>
