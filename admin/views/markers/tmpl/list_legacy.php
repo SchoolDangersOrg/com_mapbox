@@ -1,6 +1,5 @@
 <?php
 	defined('_JEXEC') or die('Restricted access');
-	JHtml::_('behavior.modal');
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
 	$uri = JURI::getInstance();
@@ -36,17 +35,20 @@
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this);" />
 				</th>
 				<th class="title" nowrap="nowrap">
-					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'marker_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter'); ?>
 				</th>
 				<th width="5%" nowrap="nowrap">
-					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_PUBLISHED_LABEL', 'published', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_PUBLISHED_LABEL', 'published', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter'); ?>
 				</th>
 				<th width="10%" nowrap="nowrap">
-					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_ORDERING_LABEL', 'ordering', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter');?>
-					<?php echo JHTML::_('grid.order', $this->items, 'filesave.png', 'mapbox.saveorder'); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_ORDERING_LABEL', 'map.ordering, marker.ordering', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter');?>
+					<?php echo JHTML::_('grid.order', $this->items, 'filesave.png', 'markers.saveorder'); ?>
 				</th>
 				<th nowrap="nowrap">
-					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_ACCESS_LABEL', 's.access', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_ACCESS_LABEL', 'marker.access', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter'); ?>
+				</th>
+				<th>
+				    <?php echo JHtml::_('grid.sort', 'COM_MAPBOX_MAP_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter'); ?>
 				</th>
 				<th>
 					<?php echo JText::_('COM_MAPBOX_LIST_DESCRIPTION_LABEL'); ?>
@@ -86,12 +88,15 @@
 					<?php echo JHtml::_('jgrid.published', $row->published, $i, 'markers.', true, 'cb'); ?>
 				</td>
 				<td class="order">
-					<span><?php echo $this->page->orderUpIcon( $i, ($this->page->getRowOffset($i) > 1), 'markers.orderup', 'Move Up'); ?></span>
-					<span><?php echo $this->page->orderDownIcon( $i, count($this->items), true, 'markers.orderdown', 'Move Down'); ?></span>
+					<span><?php echo $this->page->orderUpIcon( $i, ($this->page->getRowOffset($i) > 1 && $row->ordering > 1), 'markers.orderup', 'Move Up'); ?></span>
+					<span><?php echo $this->page->orderDownIcon( $i, count($this->items), (@$this->items[$i+1]->map_id == $row->map_id), 'markers.orderdown', 'Move Down'); ?></span>
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td align="center">
 					<?php echo $row->access; ?>
+				</td>
+				<td>
+				    <?php echo $row->map_name; ?>
 				</td>
 				<td>
 					<?php echo implode(" ", array_splice($desc, 0, 55)); ?>
