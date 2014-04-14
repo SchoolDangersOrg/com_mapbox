@@ -42,8 +42,8 @@
 	<administration>
 		<menu>COM_MAPBOX_MENU_ITEM_ROOT</menu>
 		<submenu>
-			<menu img="/administrator/components/com_slideshow/images/map.png" view="mapbox" layout="list">COM_MAPBOX_SUBMENU_MAPS</menu>
-			<menu img="/administrator/components/com_slideshow/images/rosette.png" view="markers" layout="list">COM_MAPBOX_SUBMENU_MARKERS</menu>
+			<menu img="/administrator/components/com_mapbox/images/map.png" view="mapbox" layout="list">COM_MAPBOX_SUBMENU_MAPS</menu>
+			<menu img="/administrator/components/com_mapbox/images/rosette.png" view="markers" layout="list">COM_MAPBOX_SUBMENU_MARKERS</menu>
 		</submenu>
 		<languages folder="admin">
 			<language tag="en-US">language/en-US/en-US.com_mapbox.ini</language>
