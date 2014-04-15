@@ -23,7 +23,12 @@
 	</fields>
 	<fields name="params">
 		<fieldset name="params">
-		    <field name="marker-symbol" type="list" default="circle" label="COM_MAPBOX_MARKER_SYMBOL_LABEL" description="COM_MAPBOX_MARKER_SYMBOL_DESC">
+			<field name="marker_size" type="list" default="medium" label="COM_MAPBOX_MARKER_SIZE_LABEL" description="COM_MAPBOX_MARKER_SIZE_DESC">
+				<option value="small">Small</option>
+				<option value="medium">Medium</option>
+				<option value="large">Large</option>
+			</field>
+		    <field name="marker_symbol" type="list" default="circle" label="COM_MAPBOX_MARKER_SYMBOL_LABEL" description="COM_MAPBOX_MARKER_SYMBOL_DESC">
                 <option value="circle-stroked">Circle stroked</option>
                 <option value="circle">Circle solid</option>
                 <option value="square-stroked">Square stroked</option>
