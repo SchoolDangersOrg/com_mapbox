@@ -1,6 +1,7 @@
 <?php
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.tooltip');
+	$user = JFactory::getUser();
 	$uri = JURI::getInstance();
 	$base = $uri->root();
 ?>
@@ -62,6 +63,9 @@
 			$checked	= JHTML::_('grid.id', $i, $row->map_id);
 			$link		= JRoute::_('index.php?option=com_mapbox&task=mapbox.edit&map_id='. $row->map_id.'&'.JSession::getFormToken().'=1');
 			$desc       = explode(" ", strip_tags($row->map_description));
+			$canEdit	= $user->authorise('core.edit', 'com_mapbox');
+			$canCheckin	= $user->authorise('core.manage', 'com_checkin') || $item->checked_out==$user->get('id') || $item->checked_out==0;
+			$canChange	= $user->authorise('core.edit.state', 'com_mapbox') && $canCheckin;
 			?>
 			<tr class="row<?php echo $k; ?>">
 				<td>
@@ -73,10 +77,14 @@
 				<td  nowrap="nowrap">
 					<?php
 					if($row->checked_out){
-						echo JHTML::_('grid.checkedout', $row, $i, 'map_id');
-						echo JText::_( $row->map_name);
+						echo JHTML::_('jgrid.checkedout', $i, $row->editor, $row->checked_out_time, 'mapbox.', $canCheckin);
+						echo htmlspecialchars($row->map_name, ENT_QUOTES);
 					}else{
-						echo "<a href=\"{$link}\">" . htmlspecialchars($row->map_name, ENT_QUOTES) . "</a>";
+					    if($canEdit){
+						    echo "<a href=\"{$link}\">" . htmlspecialchars($row->map_name, ENT_QUOTES) . "</a>";
+						}else{
+						    echo htmlspecialchars($row->map_name, ENT_QUOTES);
+						}
 					}
 					?>
 				</td>
