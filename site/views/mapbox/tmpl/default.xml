@@ -5,7 +5,7 @@
 	</layout>
 	<fields name="request">
 		<fieldset name="request">
-			<field name="id" label="COM_MAPBOX_REQUEST_ID_LABEL" description="COM_MAPBOX_REQUEST_ID_DESC" type="sql" query="SELECT `mapbox_id`, `mapbox_name` FROM `#__mapbox` ORDER BY `ordering`" key_field="mapbox_id" value_field="mapbox_name" />
+			<field name="id" label="COM_MAPBOX_REQUEST_ID_LABEL" description="COM_MAPBOX_REQUEST_ID_DESC" type="sql" query="SELECT `map_id`, `map_name` FROM `#__mapbox_maps` ORDER BY `ordering`" key_field="map_id" value_field="map_name" />
 		</fieldset>
 	</fields>
 </metadata>
