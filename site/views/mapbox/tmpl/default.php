@@ -1,16 +1,12 @@
 <?php
 	// NO DIRECT ACCESS
 	defined('_JEXEC') or die('Restricted access');
-	// SET DOCUMENT HEAD FOR PAGE
 	$doc = JFactory::getDocument();
-	if(trim($this->data->meta_description)){
-		$doc->setMetaData('description', $this->data->meta_description);
-	}
-	if(trim($this->data->meta_keywords)){
-		$doc->setMetaData('keywords', $this->data->meta_keywords);
-	}
+	$doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
+	$doc->addScriptDeclaration("window.onload = function() { map = L.mapbox.map('".$this->data->map_alias."', '".$this->data->map_api_key."'); }");
+	$doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+	$doc->addStyleDeclaration("#".$this->data->map_alias." { position: absolute; width: 100%; height: 100%;}");
 ?>
 
-<div>
-<!-- OUTPUT CUSTOM HTML HERE -->
+<div id="<?php echo $this->data->map_alias; ?>">
 </div>

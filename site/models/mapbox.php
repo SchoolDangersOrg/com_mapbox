@@ -28,10 +28,13 @@ class MapboxModelMapbox extends JModelLegacy
     {
     	$levels	= $this->getState('levels');
 		$id 	= JFactory::getApplication()->input->get('id', 0, 'int');
-		$sql	= "SELECT * FROM `#__mapbox` ".
-		"WHERE `mapbox_id` = {$id} ".
-		"AND `published` = 1 ".
-		"AND `access` IN ({$levels}) LIMIT 1";
+		$sql    = $this->_db->getQuery(true);
+		
+		$sql->select("*");
+		$sql->from("`#__mapbox_maps`");
+		$sql->where("`map_id` = {$id}");
+		$sql->where("`published` = 1");
+		$sql->where("`access` IN ({$levels})");
 		if($id){
 			$this->_db->setQuery($sql);
 			$this->_data = $this->_db->loadObject();
