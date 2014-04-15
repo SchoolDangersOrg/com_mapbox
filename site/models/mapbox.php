@@ -23,6 +23,7 @@ class MapboxModelMapbox extends JModelLegacy
     /**
      * Retrieve data for a single item
      * @return object A stdClass object containing the data for a single record.
+     * @since 1.0
      */
     public function getData()
     {
@@ -49,8 +50,51 @@ class MapboxModelMapbox extends JModelLegacy
         return $this->_data;
     }
     /**
+     * Retrieve data for a single item
+     * @return object A stdClass object containing the data for a single record.
+     * @since 1.0
+     */
+    public function getMarkers()
+    {
+    	$levels	= $this->getState('levels');
+		$id 	= JFactory::getApplication()->input->get('id', 0, 'int');
+		$sql    = $this->_db->getQuery(true);
+		
+		$sql->select("marker.*");
+		$sql->from("`#__mapbox_markers` AS `marker`");
+		$sql->join("left", "`#__mapbox_maps` AS `map` USING(map_id)");
+		$sql->where("marker.`access` IN ({$levels})");
+		$sql->where("marker.`published` = 1");
+		$sql->where("marker.`map_id` = {$id}");
+		$sql->order("map.ordering, marker.ordering ASC");
+		
+		$this->_db->setQuery($sql);
+		$this->_data = $this->_db->loadObjectList();
+		$collection = array("type"=>"FeatureCollection", "features"=>array());
+		foreach($this->_data as $record){
+		    $params = json_decode($record->attribs);
+		    $geo = array(
+		        "type"      =>  "Feature",
+		        "geometry"  =>  array(
+		            "type"=>"Point",
+		            "coordinates"=>array($record->marker_lng,$record->marker_lat)
+		        ),
+		        "properties"=>  array(
+		            "title"=>$record->marker_name,
+		            "description"=>$record->marker_description,
+		            "marker-symbol"=>$params->marker_symbol,
+		            "marker-size"=>$params->marker_size,
+		            "marker-color"=>$params->marker_color
+		        )
+		    );
+		    $collection['features'][] = $geo;
+		}
+		return $collection;
+    }
+    /**
      * Retrieve a list of all data items.
      * @return array An array of stdClass objects containing data for each record.
+     * @since 1.0
      */
     public function getList()
     {

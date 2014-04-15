@@ -14,7 +14,8 @@ class MapboxViewMapbox extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		$this->data = $this->get('Data');
+		$this->data = $this->get('Markers');
+		$this->setLayout('markers');
 		parent::display($tpl);
 	}
 }
