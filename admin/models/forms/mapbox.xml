@@ -21,6 +21,11 @@
 	<fields name="params">
 		<fieldset name="params">
 			<field name="class_sfx" type="text" size="20" default="" label="COM_MAPBOX_CLASS_SUFFIX_LABEL" description="COM_MAPBOX_CLASS_SUFFIX_DESC" />
+			<field name="map_width" type="hidden" default="640" label="COM_MAPBOX_MAP_WIDTH_LABEL" description="COM_MAPBOX_MAP_WIDTH_DESC" />
+			<field name="map_height" type="hidden" default="260" label="COM_MAPBOX_MAP_HEIGHT_LABEL" description="COM_MAPBOX_MAP_HEIGHT_DESC" />
+			<field name="center_lat" type="hidden" default="20.008834970581525" label="COM_MAPBOX_MAP_LAT_LABEL" description="COM_MAPBOX_MAP_LAT_DESC"  />
+			<field name="center_lng" type="hidden" default="-35.67246318304168" label="COM_MAPBOX_MAP_LNG_LABEL" description="COM_MAPBOX_MAP_LNG_DESC"  />
+			<field name="zoom" type="hidden" default="2" />
 		</fieldset>
 	</fields>
 </form>
