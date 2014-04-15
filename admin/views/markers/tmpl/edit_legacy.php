@@ -1,9 +1,13 @@
 <?php
 	defined('_JEXEC') or die('Restricted access');
-	$uri = JURI::getInstance();
-	$base = $uri->root();
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
+	$key = JComponentHelper::getParams('com_mapbox')->get('default_api_key');
+	$doc = JFactory::getDocument();
+    $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
+    $doc->addScriptDeclaration("window.addEvent('domready', function() { map = L.mapbox.map('twukSoWweucw', '".$key."').setView([0,0], 2); var marker = L.marker([0, 0], { draggable: true }).addTo(map); });");
+    $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+    $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
 ?>
 
 <script type="text/javascript">
@@ -78,6 +82,13 @@
 					<dd><?php echo $field->input; ?></dd>
 				<?php } ?>
 				</dl>
+			</fieldset>
+			<fieldset class="adminform">
+			    <legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_MARKER'); ?></legend>
+			    <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
+			    <div id="twukSoWweucw">
+			    </div>
+			    </div>
 			</fieldset>
 		</div>
 	</div>
