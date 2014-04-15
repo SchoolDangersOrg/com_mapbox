@@ -5,7 +5,6 @@
 	$key = JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
-    $doc->addScriptDeclaration("window.addEvent('domready', function() { map = L.mapbox.map('twukSoWweucw', '".$key."').setView([0,0], 2); var marker = L.marker([0, 0], { draggable: true }).addTo(map); });");
     $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
 ?>
@@ -24,6 +23,21 @@
 		document.formvalidator.setHandler('cmd', function(value){
 			re_cmd = /^([\w-_]+)$/;
 			return re_cmd.test(value);
+		});
+		
+		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat'); ?>, <?php echo $this->form->getValue('marker_lng'); ?>], 2);
+		marker = L.marker([<?php echo $this->form->getValue('marker_lat'); ?>, <?php echo $this->form->getValue('marker_lng'); ?>], {
+		    icon: L.mapbox.marker.icon({
+		        "marker-size": "<?php echo $this->form->getValue('params.marker_size'); ?>",
+		        "marker-symbol": "<?php echo $this->form->getValue('params.marker_symbol'); ?>",
+		        "marker-color": "<?php echo $this->form->getValue('params.marker_color'); ?>",
+		    }),
+		    draggable: true
+		}).addTo(map);
+		marker.on('dragend', function(){
+		    var coords = marker.getLatLng();
+		    document.getElementById('jform_marker_lat').value = coords.lat;
+		    document.getElementById('jform_marker_lng').value = coords.lng;
 		});
 	});
 	Joomla.submitbutton = function (sometask){

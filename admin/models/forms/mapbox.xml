@@ -21,6 +21,10 @@
 	<fields name="params">
 		<fieldset name="params">
 			<field name="class_sfx" type="text" size="20" default="" label="COM_MAPBOX_CLASS_SUFFIX_LABEL" description="COM_MAPBOX_CLASS_SUFFIX_DESC" />
+			<field name="fit_to_markers" type="radio" filter="uint" class="radio btn-group validate-uint" required="true" default="0" label="COM_MAPBOX_FIT_TO_MARKERS_LABEL" description="COM_MAPBOX_FIT_TO_MARKERS_DESC">
+				<option value="1">COM_MAPBOX_BOOLEAN_TRUE</option>
+				<option value="0">COM_MAPBOX_BOOLEAN_FALSE</option>
+			</field>
 			<field name="map_width" type="hidden" default="640" label="COM_MAPBOX_MAP_WIDTH_LABEL" description="COM_MAPBOX_MAP_WIDTH_DESC" />
 			<field name="map_height" type="hidden" default="260" label="COM_MAPBOX_MAP_HEIGHT_LABEL" description="COM_MAPBOX_MAP_HEIGHT_DESC" />
 			<field name="center_lat" type="hidden" default="20.008834970581525" label="COM_MAPBOX_MAP_LAT_LABEL" description="COM_MAPBOX_MAP_LAT_DESC"  />
