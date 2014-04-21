@@ -142,5 +142,12 @@
 		    </field>
 		    <field name="marker_color" type="color" default="#1087BF" label="COM_MAPBOX_MARKER_COLOR_LABEL" description="COM_MAPBOX_MARKER_COLOR_DESC" />
 		</fieldset>
+		<fieldset name="info">
+		    <field name="metric_1" type="text" label="COM_MAPBOX_METRIC_ONE_LABEL" description="COM_MAPBOX_METRIC_ONE_DESC" />
+		    <field name="metric_2" type="text" label="COM_MAPBOX_METRIC_TWO_LABEL" description="COM_MAPBOX_METRIC_TWO_DESC" />
+		    <field name="metric_3" type="text" label="COM_MAPBOX_METRIC_THREE_LABEL" description="COM_MAPBOX_METRIC_THREE_DESC" />
+		    <field name="metric_4" type="text" label="COM_MAPBOX_METRIC_FOUR_LABEL" description="COM_MAPBOX_METRIC_FOUR_DESC" />
+		    <field name="metric_5" type="text" label="COM_MAPBOX_METRIC_FIVE_LABEL" description="COM_MAPBOX_METRIC_FIVE_DESC" />
+		</fieldset>
 	</fields>
 </form>
