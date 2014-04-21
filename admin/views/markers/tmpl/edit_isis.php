@@ -2,7 +2,7 @@
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
-	$key = JComponentHelper::getParams('com_mapbox')->get('default_api_key');
+	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
     $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
@@ -25,8 +25,8 @@
 			return re_cmd.test(value);
 		});
 		
-		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat'); ?>, <?php echo $this->form->getValue('marker_lng'); ?>], <?php echo $this->map->zoom; ?>);
-		marker = L.marker([<?php echo $this->form->getValue('marker_lat'); ?>, <?php echo $this->form->getValue('marker_lng'); ?>], {
+		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], <?php echo $this->map->zoom; ?>);
+		marker = L.marker([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], {
 		    icon: L.mapbox.marker.icon({
 		        "marker-size": "<?php echo $this->form->getValue('params.marker_size'); ?>",
 		        "marker-symbol": "<?php echo $this->form->getValue('params.marker_symbol'); ?>",

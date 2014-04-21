@@ -25,7 +25,7 @@
 			return re_cmd.test(value);
 		});
 		
-		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('params.center_lat'); ?>,<?php echo $this->form->getValue('params.center_lng'); ?>],<?php echo $this->form->getValue('params.zoom'); ?>);
+		map = L.mapbox.map('twukSoWweucw', '<?php echo $this->form->getValue("map_api_key", null, $key); ?>').setView([<?php echo $this->form->getValue('params.center_lat', null, 0); ?>,<?php echo $this->form->getValue('params.center_lng', null, 0); ?>],<?php echo $this->form->getValue('params.zoom', null, 2); ?>);
 		marker = L.marker([<?php echo $this->form->getValue('params.center_lat'); ?>,<?php echo $this->form->getValue('params.center_lng'); ?>], { draggable: true }).addTo(map);
 		marker.on('dragend', function(){
 			var coords = marker.getLatLng();

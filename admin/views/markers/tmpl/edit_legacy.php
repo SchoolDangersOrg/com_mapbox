@@ -2,11 +2,12 @@
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
-	$key = JComponentHelper::getParams('com_mapbox')->get('default_api_key');
+	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
     $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
+    $doc->addStyleDeclaration("dl.base { width: 50%; float: left; }");
 ?>
 
 <script type="text/javascript">
@@ -25,8 +26,8 @@
 			return re_cmd.test(value);
 		});
 		
-		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat'); ?>, <?php echo $this->form->getValue('marker_lng'); ?>], 2);
-		marker = L.marker([<?php echo $this->form->getValue('marker_lat'); ?>, <?php echo $this->form->getValue('marker_lng'); ?>], {
+		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], <?php echo @(int)$this->map->zoom; ?>);
+		marker = L.marker([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], {
 		    icon: L.mapbox.marker.icon({
 		        "marker-size": "<?php echo $this->form->getValue('params.marker_size'); ?>",
 		        "marker-symbol": "<?php echo $this->form->getValue('params.marker_symbol'); ?>",
@@ -36,8 +37,8 @@
 		}).addTo(map);
 		marker.on('dragend', function(){
 		    var coords = marker.getLatLng();
-		    document.getElementById('jform_marker_lat').value = coords.lat;
-		    document.getElementById('jform_marker_lng').value = coords.lng;
+		    $('jform_marker_lat').value = coords.lat;
+		    $('jform_marker_lng').value = coords.lng;
 		});
 	});
 	Joomla.submitbutton = function (sometask){
@@ -66,8 +67,14 @@
 		<div class="width-60 fltlft">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_BASIC'); ?></legend>
-				<dl>
+				<dl class="base">
 				<?php foreach($this->form->getFieldset('base') as $field){ ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php } ?>
+				</dl>
+				<dl class="base">
+				<?php foreach($this->form->getFieldset('params') as $field){ ?>
 					<dt><?php echo $field->label; ?></dt>
 					<dd><?php echo $field->input; ?></dd>
 				<?php } ?>
@@ -83,15 +90,6 @@
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_OPTIONS'); ?></legend>
 				<dl>
 				<?php foreach($this->form->getFieldset('options') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php } ?>
-				</dl>
-			</fieldset>
-			<fieldset class="adminform">
-				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_PARAMS'); ?></legend>
-				<dl>
-				<?php foreach($this->form->getFieldset('params') as $field){ ?>
 					<dt><?php echo $field->label; ?></dt>
 					<dd><?php echo $field->input; ?></dd>
 				<?php } ?>

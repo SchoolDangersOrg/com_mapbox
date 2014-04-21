@@ -163,15 +163,15 @@ class MapboxModelMarkers extends JModelAdmin
 	    $app = JFactory::getApplication();
 	    $input = $app->input;
 	    $id = $input->get('marker_id', 0, 'uint');
-	    
-	    $sql->select("attribs");
-	    $sql->from("#__mapbox_maps");
-	    $sql->where("map_id = {$id}");
-	    
+	    $sql->select("map_api_key, map.attribs");
+	    $sql->from("#__mapbox_maps AS map");
+	    $sql->join("left", "#__mapbox_markers AS marker USING(map_id)");
+	    $sql->where("marker_id = {$id}");
 	    $this->_db->setQuery($sql);
-	    $result = $this->_db->loadResult();
-	    
-	    return json_decode($result);
+	    $result = $this->_db->loadObject();
+	    $json = json_decode($result->attribs);
+	    $json->map_api_key = $result->map_api_key;
+	    return $json;
 	}
 	/**
 	 * A public method to re-order a set of markers from drag and drop ordering.
