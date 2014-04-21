@@ -66,12 +66,33 @@
 		<div class="span9 pull-left">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_BASIC'); ?></legend>
-				<dl>
-				<?php foreach($this->form->getFieldset('base') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php } ?>
-				</dl>
+				<div class="row-fluid">
+				    <div class="span4">
+                        <?php foreach($this->form->getFieldset('base') as $field){ ?>
+                        <div class="control-group">	
+                            <?php echo $field->label; ?>
+                            <div class="controls">
+                                <?php echo $field->input; ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+				    <div class="span4">
+                        <?php foreach($this->form->getFieldset('params') as $field){ ?>
+                        <div class="control-group">	
+                            <?php echo $field->label; ?>
+                            <div class="controls">
+                                <?php echo $field->input; ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+				    <div class="span4">
+                        <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
+                            <div id="twukSoWweucw"></div>
+                        </div>
+                    </div>
+                </div>
 				<div class="clr"></div>
 				<?php echo $this->form->getLabel('marker_description'); ?>
 				<div class="clr"></div>
@@ -81,27 +102,14 @@
 		<div class="span3 pull-left">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_OPTIONS'); ?></legend>
-				<dl>
 				<?php foreach($this->form->getFieldset('options') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
+				<div class="control-group">
+					<?php echo $field->label; ?>
+					<div class="controls">
+					    <?php echo $field->input; ?>
+					</div>
+				</div>
 				<?php } ?>
-				</dl>
-			</fieldset>
-			<fieldset class="adminform">
-				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_PARAMS'); ?></legend>
-				<dl>
-				<?php foreach($this->form->getFieldset('params') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php } ?>
-				</dl>
-			</fieldset>
-			<fieldset class="adminform">
-			    <legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_MARKER'); ?></legend>
-			    <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
-			    	<div id="twukSoWweucw"></div>
-			    </div>
 			</fieldset>
 		</div>
 	</div>
