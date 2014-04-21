@@ -25,8 +25,8 @@
 				<option value="1">COM_MAPBOX_BOOLEAN_TRUE</option>
 				<option value="0">COM_MAPBOX_BOOLEAN_FALSE</option>
 			</field>
-			<field name="map_width" type="hidden" default="640" label="COM_MAPBOX_MAP_WIDTH_LABEL" description="COM_MAPBOX_MAP_WIDTH_DESC" />
-			<field name="map_height" type="hidden" default="260" label="COM_MAPBOX_MAP_HEIGHT_LABEL" description="COM_MAPBOX_MAP_HEIGHT_DESC" />
+			<field name="map_width" type="text" required="true" default="100%" label="COM_MAPBOX_MAP_WIDTH_LABEL" description="COM_MAPBOX_MAP_WIDTH_DESC" />
+			<field name="map_height" type="text" required="true" default="350px" label="COM_MAPBOX_MAP_HEIGHT_LABEL" description="COM_MAPBOX_MAP_HEIGHT_DESC" />
 			<field name="center_lat" type="hidden" default="20.008834970581525" label="COM_MAPBOX_MAP_LAT_LABEL" description="COM_MAPBOX_MAP_LAT_DESC"  />
 			<field name="center_lng" type="hidden" default="-35.67246318304168" label="COM_MAPBOX_MAP_LNG_LABEL" description="COM_MAPBOX_MAP_LNG_DESC"  />
 			<field name="zoom" type="hidden" default="2" />
