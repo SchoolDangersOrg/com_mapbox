@@ -86,7 +86,7 @@
 					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_PUBLISHED_LABEL', 'published', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 				<th class="title" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_MAP_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 				<th class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_ACCESS_LABEL', 's.access', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
