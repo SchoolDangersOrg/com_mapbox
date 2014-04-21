@@ -35,7 +35,7 @@
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this);" />
 				</th>
 				<th class="title" nowrap="nowrap">
-					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_MAPBOX_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_MAP_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
 				</th>
 				<th width="5%" nowrap="nowrap">
 					<?php echo JHTML::_('grid.sort', 'COM_MAPBOX_LIST_PUBLISHED_LABEL', 'published', $this->filter->filter_order_Dir, $this->filter->filter_order, 'mapbox.filter'); ?>
