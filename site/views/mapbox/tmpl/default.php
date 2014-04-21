@@ -29,5 +29,6 @@ window.addEvent('domready', function(){
 });
 //]]>
 </script>
-<div id="<?php echo $this->data->map_alias; ?>">
+<div style="position: relative; width: 100%; min-height: 300px; overflow: hidden;">
+	<div id="<?php echo $this->data->map_alias; ?>"></div>
 </div>
