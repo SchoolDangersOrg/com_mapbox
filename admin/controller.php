@@ -34,5 +34,12 @@ class MapboxController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		parent::display($cachable, $urlparams);
+		$document = JFactory::getDocument();
+		$viewType = $document->getType();
+		$viewName = $this->input->get('view', $this->default_view);
+		if($viewType == 'html' && $viewName == 'markers'){
+		    $view = $this->getView($viewName, 'html');
+		    $view->setModel($this->getModel('Images'));
+		}
 	}
 }
