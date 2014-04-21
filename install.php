@@ -70,7 +70,7 @@ class com_mapboxInstallerScript
 	 * UNINSTALL
 	 */
 	function uninstall( $parent ) {
-		if(!isset($this->release)) $this->release = '1.0.1';
+		if(!isset($this->release)) $this->release = '1.0.0.1';
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_UNINSTALL', $this->release) . '</p>';
 	}
  
