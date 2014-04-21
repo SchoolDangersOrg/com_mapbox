@@ -136,7 +136,7 @@ class MapboxModelMarkers extends JModelAdmin
     		$order_dir = "ASC";
     	}
     	
-    	$sql->select("SQL_CALC_FOUND_ROWS marker.*, map.map_name, map.map_description, map.ordering, marker.ordering AS `ordering`");
+    	$sql->select("SQL_CALC_FOUND_ROWS marker.*, map.map_name, map.map_description, map.ordering AS `map_order`, marker.ordering AS `ordering`");
     	$sql->select("v.title AS `access`, u.`name` AS `editor`");
     	$sql->from("`#__mapbox_markers` AS marker");
     	$sql->join("left", "`#__mapbox_maps` AS map USING(map_id)");
@@ -149,6 +149,30 @@ class MapboxModelMarkers extends JModelAdmin
 		$this->_data = $this->_getList($sql, $this->getState('limitstart'), $this->getState('limit'));
 
     	return $this->_data;
+    }
+	/**
+	 * A public method to re-order a set of markers from drag and drop ordering.
+	 *
+	 * @param   array	$pks An array of private keys.
+	 * @param	array	$ordering An array of ordering values to be matched with the keys
+	 *
+	 * @return  bool
+	 *
+	 * @since   1.0
+	 */
+    public function saveMarkerOrder($pks, $ordering)
+    {
+    	$sql = $this->_db->getQuery(true);
+    	
+    	foreach($pks as $i => $id){
+			$sql->update("#__mapbox_markers");
+			$sql->set("ordering = ".$ordering[$i]);
+			$sql->where("marker_id = {$id}");
+			$this->_db->setQuery($sql);
+			$this->_db->execute();
+			$sql->clear();
+    	}
+    	return true;
     }
 	/**
 	 * Method to auto-populate the model state.

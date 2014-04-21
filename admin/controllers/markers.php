@@ -267,8 +267,8 @@ class MapboxControllerMarkers extends JControllerForm
 		$model = $this->getModel();
 
 		// Save the ordering
-		$return = $model->saveorder($pks, $order);
-
+		$return = $model->saveMarkerOrder($pks, $order);
+		
 		if ($return)
 		{
 			echo "1";
