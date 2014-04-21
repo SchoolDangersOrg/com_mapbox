@@ -98,7 +98,20 @@
 				</dl>
 			</fieldset>
 			<fieldset class="adminform">
+				<legend><?php echo JText::_('Info'); ?></legend>
+				<dl>
+				<?php foreach($this->form->getFieldset('info') as $field){ ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php } ?>
+				</dl>
+			</fieldset>
+			<fieldset class="adminform">
 			    <legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_MARKER'); ?></legend>
+			    <dl>
+			    	<dt><label for="geo_search_input"><?php echo JText::_('COM_MAPBOX_GEO_SEARCH'); ?></label></dt>
+			    	<dd><input type="text" name="geo_search_input" id="geo_search_input" placeholder="<?php echo JText::_('COM_MAPBOX_GEO_SEARCH_PLACEHOLDER'); ?>" value="" /></dd>
+			    </dl>
 			    <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
 			    <div id="twukSoWweucw">
 			    </div>
