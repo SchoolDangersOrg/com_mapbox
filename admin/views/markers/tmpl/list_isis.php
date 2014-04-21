@@ -7,10 +7,10 @@
 	$sortFields = array();
 	$sortFields['marker_name'] = JText::_('COM_MAPBOX_LIST_MARKER_NAME_LABEL');
 	$sortFields['published'] = JText::_('COM_MAPBOX_LIST_PUBLISHED_LABEL');
-	$sortFields['ordering'] = JText::_('COM_MAPBOX_LIST_ORDERING_LABEL');
-	$sortFields['s.access'] = JText::_('COM_MAPBOX_LIST_ACCESS_LABEL');
+	$sortFields['map.ordering, marker.ordering'] = JText::_('COM_MAPBOX_LIST_ORDERING_LABEL');
+	$sortFields['access'] = JText::_('COM_MAPBOX_LIST_ACCESS_LABEL');
 	$sortFields['marker_id'] = JText::_('COM_MAPBOX_LIST_ID_LABEL');
-	$saveOrder = $this->filter->filter_order == 'ordering';
+	$saveOrder = $this->filter->filter_order == 'map.ordering, marker.ordering';
 	if ($saveOrder)
 	{
 		$saveOrderingUrl = 'index.php?option=com_mapbox&task=markers.saveOrderAjax&tmpl=component';
@@ -60,7 +60,6 @@
 		<div class="btn-group pull-right">
 			<label for="sortTable" class="element-invisible"><?php echo JText::_('JGLOBAL_SORT_BY');?></label>
 			<select name="sortTable" id="sortTable" class="input-medium" onchange="Joomla.orderTable()">
-				<option value=""><?php echo JText::_('JGLOBAL_SORT_BY');?></option>
 				<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $this->filter->filter_order);?>
 			</select>
 		</div>
@@ -76,7 +75,7 @@
 		<thead>
 			<tr>
 				<th width="1%" class="nowrap center hidden-phone">
-					<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'ordering', $this->filter->filter_order_Dir, $this->filter->filter_order, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
+					<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'map.ordering, marker.ordering', $this->filter->filter_order_Dir, $this->filter->filter_order, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
 				</th>
 				<th width="5">
 					<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this)" />
@@ -91,6 +90,9 @@
 					<?php echo JHtml::_('grid.sort', 'COM_MAPBOX_LIST_ACCESS_LABEL', 'markers.access', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter'); ?>
 				</th>
 				<th>
+				    <?php echo JHtml::_('grid.sort', 'COM_MAPBOX_MAP_NAME_LABEL', 'map_name', $this->filter->filter_order_Dir, $this->filter->filter_order, 'markers.filter'); ?>
+				</th>
+				<th>
 					<?php echo JText::_('COM_MAPBOX_LIST_DESCRIPTION_LABEL'); ?>
 				</th>
 				<th width="1%">
@@ -103,7 +105,7 @@
 		$k = 0;
 		for($i=0; $i < count($this->items); $i++){
 			$row		= $this->items[$i];
-			$checked	= JHtml::_('grid.id', $i, $row->map_id);
+			$checked	= JHtml::_('grid.id', $i, $row->marker_id);
 			$link		= JRoute::_('index.php?option=com_mapbox&task=markers.edit&marker_id='. $row->marker_id.'&'.JSession::getFormToken().'=1');
 			$canCreate  = $user->authorise('core.create',     'com_mapbox');
 			$canEdit    = $user->authorise('core.edit',       'com_mapbox');
@@ -111,7 +113,7 @@
 			$canEditOwn = $user->authorise('core.edit.own',   'com_mapbox');
 			$canChange  = $user->authorise('core.edit.state', 'com_mapbox') && $canCheckin;
 			?>
-			<tr class="row<?php echo $k; ?>" sortable-group-id="">
+			<tr class="row<?php echo $k; ?>" sortable-group-id="<?php echo $row->map_order; ?>">
 				<td class="order nowrap center hidden-phone">
 					<?php
 					$iconClass = '';
@@ -135,12 +137,12 @@
 					<?php echo $checked; ?>
 				</td>
 				<td align="center">
-					<?php echo JHtml::_('jgrid.published', $row->published, $i, 'mapbox.', $canChange, 'cb'); ?>
+					<?php echo JHtml::_('jgrid.published', $row->published, $i, 'markers.', $canChange, 'cb'); ?>
 				</td>
 				<td  class="nowrap">
 					<?php
 					if($row->checked_out){
-						echo JHtml::_('jgrid.checkedout', $i, $row->editor, $row->checked_out_time, 'mapbox.', $canCheckin);
+						echo JHtml::_('jgrid.checkedout', $i, $row->editor, $row->checked_out_time, 'markers.', $canCheckin);
 						echo "<span class=\"title\">".JText::_( $row->marker_name)."</span>";
 					}else{
 						if($canEdit || $canEditOwn){
@@ -155,10 +157,13 @@
 					<?php echo $row->access; ?>
 				</td>
 				<td>
+				    <?php echo $row->map_name; ?>
+				</td>
+				<td>
 					<?php $words = explode(" ", strip_tags($row->marker_description)); echo implode(" ", array_splice($words, 0, 55)); ?>
 				</td>
 				<td>
-					<?php echo $row->map_id; ?>
+					<?php echo $row->marker_id; ?>
 				</td>
 			</tr>
 			<?php

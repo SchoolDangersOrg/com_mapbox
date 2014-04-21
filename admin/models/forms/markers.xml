@@ -14,11 +14,11 @@
 		</fieldset>
 		<fieldset name="options">
 			<field name="map_id" type="sql" default="0" label="COM_MAPBOX_MAP_ID_LABEL" description="COM_MAPBOX_MAP_ID_DESC" query="SELECT `map_id`, `map_name` FROM `#__mapbox_maps` ORDER BY `ordering`" key_field="map_id" value_field="map_name" />
-			<field name="published" type="radio" default="1" label="COM_MAPBOX_PUBLISHED_LABEL" description="COM_MAPBOX_PUBLISHED_DESC">
+			<field name="access" type="accesslevel" default="1" label="COM_MAPBOX_ACCESS_LABEL" description="COM_MAPBOX_ACCESS_DESC" />
+			<field name="published" type="radio" default="1" class="radio btn-group" label="COM_MAPBOX_PUBLISHED_LABEL" description="COM_MAPBOX_PUBLISHED_DESC">
 				<option value="1">COM_MAPBOX_BOOLEAN_TRUE</option>
 				<option value="2">COM_MAPBOX_BOOLEAN_FALSE</option>
 			</field>
-			<field name="access" type="accesslevel" default="1" label="COM_MAPBOX_ACCESS_LABEL" description="COM_MAPBOX_ACCESS_DESC" />
 		</fieldset>
 	</fields>
 	<fields name="params">

@@ -2,11 +2,16 @@
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
+	$key = JComponentHelper::getParams('com_mapbox')->get('default_api_key');
+	$doc = JFactory::getDocument();
+    $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
+    $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+    $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
 ?>
 
 <script type="text/javascript">
 //<![CDATA[
-	window.addEvent('domready', function(){
+	jQuery(document).ready(function(){
 		document.formvalidator.setHandler('uint', function(value){
 			re_uint = /^\d+$/;
 			return re_uint.test(value);
@@ -19,6 +24,14 @@
 			re_cmd = /^([\w-_]+)$/;
 			return re_cmd.test(value);
 		});
+		
+		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('params.center_lat'); ?>,<?php echo $this->form->getValue('params.center_lng'); ?>],<?php echo $this->form->getValue('params.zoom'); ?>);
+		marker = L.marker([<?php echo $this->form->getValue('params.center_lat'); ?>,<?php echo $this->form->getValue('params.center_lng'); ?>], { draggable: true }).addTo(map);
+		marker.on('dragend', function(){
+			var coords = marker.getLatLng();
+			document.getElementById('jform_params_center_lat').value = coords.lat;
+			document.getElementById('jform_params_center_lng').value = coords.lng;
+		});
 	});
 	Joomla.submitbutton = function (sometask){
 		var someForm = document.forms.adminForm;
@@ -30,6 +43,7 @@
 			if(!document.formvalidator.isValid(someForm)){
 				return false;
 			}
+			jQuery('#jform_params_zoom').val(map.getZoom());
 		}
 		<?php echo $this->form->getField('map_description')->save(); ?>
 		someForm.task.value = sometask;
@@ -49,12 +63,19 @@
 		<div class="span9 pull-left">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_BASIC'); ?></legend>
-				<dl>
-				<?php foreach($this->form->getFieldset('base') as $field){ ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php } ?>
-				</dl>
+				<div class="row-fluid">
+					<dl class="span5">
+					<?php foreach($this->form->getFieldset('base') as $field){ ?>
+						<dt><?php echo $field->label; ?></dt>
+						<dd><?php echo $field->input; ?></dd>
+					<?php } ?>
+					</dl>
+					<div class="span7">
+						<div style="position:relative; width: 100%; height: 200px; overflow: hidden;">
+							<div id="twukSoWweucw"></div>
+						</div>
+					</div>
+				</div>
 				<div class="clr"></div>
 				<?php echo $this->form->getLabel('map_description'); ?>
 				<div class="clr"></div>
