@@ -15,7 +15,7 @@ class com_mapboxInstallerScript
 	/*
 	 * PREFLIGHT
 	 */
-	function preflight( $type, $parent ) {
+	public function preflight( $type, $parent ) {
 		$jversion = new JVersion();
 
 		// INSTALLING COMPONENT MANIFEST FILE VERSION
@@ -60,24 +60,24 @@ class com_mapboxInstallerScript
 	/*
 	 * INSTALL
 	 */
-	function install( $parent ) {
-		mkdir(JPATH_ROOT."/images/mapbox");
-		rename(JPATH_ROOT."/administrator/components/com_mapbox/images/fullsize", JPATH_ROOT."/images/mapbox/fullsize");
-		rename(JPATH_ROOT."/administrator/components/com_mapbox/images/thumbnails", JPATH_ROOT."/images/mapbox/thumbnails");
-		rename(JPATH_ROOT."/administrator/components/com_mapbox/images/originals", JPATH_ROOT."/images/mapbox/originals");
+	public function install( $parent ) {
+	    if(!file_exists(JPATH_ROOT."/images/mapbox")) mkdir(JPATH_ROOT."/images/mapbox");
+        rename(dirname(__FILE__)."/admin/images/mapbox/fullsize", JPATH_ROOT."/images/mapbox/fullsize");
+        rename(dirname(__FILE__)."/admin/images/mapbox/thumbnails", JPATH_ROOT."/images/mapbox/thumbnails");
+        rename(dirname(__FILE__)."/admin/images/mapbox/originals", JPATH_ROOT."/images/mapbox/originals");
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_INSTALL', $this->release) . '</p>';
 	}
  
 	/*
 	 * UPDATE
 	 */
-	function update( $parent ) {
+	public function update( $parent ) {
 	    if(version_compare($this->getManifestParam('version'), "1.0.0.1", "le")){
 	        if(version_compare($this->release, "1.0.0.2", "ge")){
-                mkdir(JPATH_ROOT."/images/mapbox");
-                rename(JPATH_ROOT."/administrator/components/com_mapbox/images/fullsize", JPATH_ROOT."/images/mapbox/fullsize");
-                rename(JPATH_ROOT."/administrator/components/com_mapbox/images/thumbnails", JPATH_ROOT."/images/mapbox/thumbnails");
-                rename(JPATH_ROOT."/administrator/components/com_mapbox/images/originals", JPATH_ROOT."/images/mapbox/originals");
+	            if(!file_exists(JPATH_ROOT."/images/mapbox")) mkdir(JPATH_ROOT."/images/mapbox");
+                rename(dirname(__FILE__)."/admin/images/mapbox/fullsize", JPATH_ROOT."/images/mapbox/fullsize");
+                rename(dirname(__FILE__)."/admin/images/mapbox/thumbnails", JPATH_ROOT."/images/mapbox/thumbnails");
+                rename(dirname(__FILE__)."/admin/images/mapbox/originals", JPATH_ROOT."/images/mapbox/originals");
 	        }
 	    }
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_UPDATE', $this->release) . '</p>';
@@ -86,14 +86,17 @@ class com_mapboxInstallerScript
 	/*
 	 * POSTFLIGHT
 	 */
-	function postflight( $type, $parent ) {
+	public function postflight( $type, $parent ) {
 		echo '<p>' . JText::_('COM_MAPBOX_MSG_SUCCESS_POSTFLIGHT') . '</p>';
 	}
 
 	/*
 	 * UNINSTALL
 	 */
-	function uninstall( $parent ) {
+	public function uninstall( $parent ) {
+	    if(file_exists(JPATH_ROOT."/images/mapbox")){
+	        $this->deleteDir(JPATH_ROOT."/images/mapbox");
+	    }
 		if(!isset($this->release)) $this->release = '1.0.0.2';
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_UNINSTALL', $this->release) . '</p>';
 	}
@@ -107,11 +110,31 @@ class com_mapboxInstallerScript
 		$manifest = json_decode( $db->loadResult(), true );
 		return $manifest[ $name ];
 	}
-
+	
+	/*
+	 * DELETE RESOURCES
+	 */
+	protected function deleteDir($some_dir){
+		if(is_dir($some_dir)){
+			$handle = opendir($some_dir);
+			while(false !== ($file = readdir($handle))){
+				if($file != "." && $file != ".."){
+					if(is_dir($some_dir . "/" . $file)){
+						$this->deleteDir($some_dir . "/" . $file);
+					}else{
+						unlink($some_dir . "/" . $file);
+					}
+				}
+			}
+			closedir($handle);
+			rmdir($some_dir);
+		}
+	}
+	
 	/*
 	 * GET A VARIABLE FROM THE MANIFEST FILE (ACTUALLY, FROM THE MANIFEST CACHE).
 	 */
-	function getParam( $name ) {
+	protected function getParam( $name ) {
 		$db = JFactory::getDbo();
 		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_mapbox"');
 		$manifest = json_decode( $db->loadResult(), true );
@@ -121,7 +144,7 @@ class com_mapboxInstallerScript
 	/*
 	 * SETS PARAMETER VALUES IN THE COMPONENT'S ROW OF THE EXTENSION TABLE
 	 */
-	function setParams($param_array) {
+	protected function setParams($param_array) {
 		if ( count($param_array) > 0 ) {
 			// read the existing component value(s)
 			$db = JFactory::getDbo();
