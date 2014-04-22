@@ -41,7 +41,19 @@ class com_mapboxInstallerScript
 			}
 		}
 		else { $rel = $this->release; }
- 
+
+		// ABORT IF THE SERVER ENVIRONMENT DOES NOT INCLUDE THE GD LIBRARIES
+		if (!extension_loaded('gd')) {
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_MAPBOX_MSG_ERROR_GD_MISSING'), 'error');
+			return false;
+		}
+		
+		// ABORT IF THE IMAGES DIRECTORY IS NOT WRITEABLE
+		if(!is_writeable(JPATH_ROOT."/images")){
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_MAPBOX_INSTALL_ERROR_PERMISSIONS'), 'error');
+			return false;
+		}
+
 		echo '<p>' . JText::_('COM_MAPBOX_MSG_SUCCESS_PREFLIGHT') . '</p>';
 	}
  
@@ -49,6 +61,10 @@ class com_mapboxInstallerScript
 	 * INSTALL
 	 */
 	function install( $parent ) {
+		mkdir(JPATH_ROOT."/images/mapbox");
+		rename(JPATH_ROOT."/administrator/components/com_mapbox/images/fullsize", JPATH_ROOT."/images/mapbox/fullsize");
+		rename(JPATH_ROOT."/administrator/components/com_mapbox/images/thumbnails", JPATH_ROOT."/images/mapbox/thumbnails");
+		rename(JPATH_ROOT."/administrator/components/com_mapbox/images/originals", JPATH_ROOT."/images/mapbox/originals");
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_INSTALL', $this->release) . '</p>';
 	}
  
@@ -56,6 +72,14 @@ class com_mapboxInstallerScript
 	 * UPDATE
 	 */
 	function update( $parent ) {
+	    if(version_compare($this->getManifestParam('version'), "1.0.0.1", "le")){
+	        if(version_compare($this->release, "1.0.0.2", "ge")){
+                mkdir(JPATH_ROOT."/images/mapbox");
+                rename(JPATH_ROOT."/administrator/components/com_mapbox/images/fullsize", JPATH_ROOT."/images/mapbox/fullsize");
+                rename(JPATH_ROOT."/administrator/components/com_mapbox/images/thumbnails", JPATH_ROOT."/images/mapbox/thumbnails");
+                rename(JPATH_ROOT."/administrator/components/com_mapbox/images/originals", JPATH_ROOT."/images/mapbox/originals");
+	        }
+	    }
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_UPDATE', $this->release) . '</p>';
 	}
  
@@ -70,10 +94,20 @@ class com_mapboxInstallerScript
 	 * UNINSTALL
 	 */
 	function uninstall( $parent ) {
-		if(!isset($this->release)) $this->release = '1.0.0.1';
+		if(!isset($this->release)) $this->release = '1.0.0.2';
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_UNINSTALL', $this->release) . '</p>';
 	}
  
+	/*
+	 * GET A VARIABLE FROM THE MANIFEST FILE (ACTUALLY, FROM THE MANIFEST CACHE).
+	 */
+	protected function getManifestParam( $name ) {
+		$db = JFactory::getDbo();
+		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_mapbox"');
+		$manifest = json_decode( $db->loadResult(), true );
+		return $manifest[ $name ];
+	}
+
 	/*
 	 * GET A VARIABLE FROM THE MANIFEST FILE (ACTUALLY, FROM THE MANIFEST CACHE).
 	 */
