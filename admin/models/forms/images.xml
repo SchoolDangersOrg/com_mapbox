@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<form>
+	<fields>
+		<fieldset name="base">
+			<field name="image_id" type="hidden"  />
+			<field name="marker_id" type="hidden"  />
+			<field name="image_title" type="text" label="COM_MAPBOX_IMAGE_TITLE_LABEL" description="COM_MAPBOX_IMAGE_TITLE_DESC" />
+			<field name="image_alt" type="text" label="COM_MAPBOX_IMAGE_ALT_LABEL" description="COM_MAPBOX_IMAGE_ALT_DESC" />
+			<field name="image_src" type="text" label="COM_MAPBOX_IMAGE_SRC_LABEL" description="COM_MAPBOX_IMAGE_SRC_DESC" />
+			<field name="image_thumb" type="text" label="COM_MAPBOX_IMAGE_THUMB_LABEL" description="COM_MAPBOX_IMAGE_THUMB_DESC" />
+			<field name="image_caption" type="text" label="COM_MAPBOX_IMAGE_CAPTION_LABEL" description="COM_MAPBOX_IMAGE_CAPTION_DESC" />
+		</fieldset>
+		<fieldset name="options">
+			<field name="access" type="accesslevel" default="1" label="COM_MAPBOX_ACCESS_LABEL" description="COM_MAPBOX_ACCESS_DESC" />
+			<field name="published" type="radio" default="1" class="radio btn-group" label="COM_MAPBOX_PUBLISHED_LABEL" description="COM_MAPBOX_PUBLISHED_DESC">
+				<option value="1">COM_MAPBOX_BOOLEAN_TRUE</option>
+				<option value="2">COM_MAPBOX_BOOLEAN_FALSE</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<fieldset name="params">
+		</fieldset>
+	</fields>
+</form>
