@@ -175,11 +175,7 @@ class MapboxModelImages extends JModelAdmin
     				$options = JComponentHelper::getParams('com_mapbox');
     				$this->createImage($target, "/images/mapbox/fullsize/", $options->get('img_width'), $options->get('img_height'));
     				$this->createImage($target, "/images/mapbox/thumbnails/", $options->get('thumb_width'), $options->get('thumb_height'));
-    				echo "it all goes to shit here!";
     				$table = $this->getTable();
-					echo "<pre>";
-					print_r($table);
-					echo "</pre>";
     				$table->bind(array(
     					'image_id' => null,
     					'marker_id' => $id,
