@@ -2,6 +2,8 @@
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
+	$uri = JURI::getInstance();
+	$base = $uri->root();
 	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
@@ -25,12 +27,12 @@
 			return re_cmd.test(value);
 		});
 		
-		$('#geo_search_button').on('click', function(evt){
-			geocoder.query($('#geo_search_input').val(), function(err, data){
+		jQuery('#geo_search_button').on('click', function(evt){
+			geocoder.query(jQuery('#geo_search_input').val(), function(err, data){
 				marker.setLatLng(data.latlng);
 				map.fitBounds(data.lbounds);
-				$('#jform_marker_lat').val(data.latlng[0]);
-				$('#jform_marker_lng').val(data.latlng[1]);
+				jQuery('#jform_marker_lat').val(data.latlng[0]);
+				jQuery('#jform_marker_lng').val(data.latlng[1]);
 			});
 		});
 		geocoder = L.mapbox.geocoder('<?php echo $key; ?>');
@@ -97,6 +99,10 @@
                         <?php } ?>
                     </div>
 				    <div class="span4">
+                        <div class="control-group">
+                            <label for="geo_search_input"><?php echo JText::_('COM_MAPBOX_GEO_SEARCH'); ?></label>
+                            <div class="controls"><input type="text" name="geo_search_input" id="geo_search_input" placeholder="<?php echo JText::_('COM_MAPBOX_GEO_SEARCH_PLACEHOLDER'); ?>" value="" /><button type="button" id="geo_search_button" class="btn"><i class="icon icon-search"></i></button></div>
+                        </div>
                         <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
                             <div id="twukSoWweucw"></div>
                         </div>

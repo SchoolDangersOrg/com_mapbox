@@ -10,7 +10,8 @@
     $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
     $doc->addStyleDeclaration("dl.base { width: 50%; float: left; }");
-    $doc->addStyleDeclaration("ul#sortable-image-list li { display: inline; }");
+    $doc->addStyleDeclaration("ul#sortable-image-list li { overflow: hidden; }");
+    $doc->addStyleDeclaration("ul#sortable-image-list li img { margin: 0; }");
 ?>
 
 <script type="text/javascript">
@@ -110,7 +111,7 @@
 				<div class="clr"></div>
 				<ul id="sortable-image-list">
 				<?php foreach($this->images as $obj){ ?>
-					<li><img src="<?php echo $base.$obj->image_thumb; ?>" title="" alt="" /></li>
+					<li><div><img src="<?php echo $base.$obj->image_thumb; ?>" title="" alt="" /></div></li>
 				<?php } ?>
 				</ul>
 			</fieldset>
