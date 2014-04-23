@@ -39,7 +39,8 @@ class MapboxController extends JControllerLegacy
 		$viewName = $app->input->get('view', $this->default_view);
 		if($viewType == 'html' && $viewName == 'markers'){
 		    $view = $this->getView($viewName, 'html');
-		    $view->setModel($this->getModel('Images'));
+		    $image_model = $this->getModel('Images');
+		    $view->setModel($image_model);
 		}
 		parent::display($cachable, $urlparams);
 	}
