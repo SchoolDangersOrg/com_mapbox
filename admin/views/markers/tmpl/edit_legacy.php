@@ -26,6 +26,16 @@
 			return re_cmd.test(value);
 		});
 		
+		$('geo_search_button').addEvent('click', function(){
+			geocoder.query($('geo_search_input').value, function(err, data){
+				marker.setLatLng(data.latlng);
+				map.fitBounds(data.lbounds);
+				$('jform_marker_lat').value = data.latlng[0];
+				$('jform_marker_lng').value = data.latlng[1];
+			});
+		});
+		
+		geocoder = L.mapbox.geocoder('<?php echo $key; ?>');
 		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], <?php echo @(int)$this->map->zoom; ?>);
 		marker = L.marker([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], {
 		    icon: L.mapbox.marker.icon({
