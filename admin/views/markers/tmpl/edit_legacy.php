@@ -2,12 +2,15 @@
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.tooltip');
 	JHtml::_('behavior.formvalidation');
+	$uri = JURI::getInstance();
+	$base = $uri->root();
 	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
     $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
     $doc->addStyleDeclaration("dl.base { width: 50%; float: left; }");
+    $doc->addStyleDeclaration("ul#sortable-image-list li { display: inline; }");
 ?>
 
 <script type="text/javascript">
@@ -25,6 +28,8 @@
 			re_cmd = /^([\w-_]+)$/;
 			return re_cmd.test(value);
 		});
+		
+		new Sortables($('sortable-image-list'), { handle: 'img' });
 		
 		$('geo_search_button').addEvent('click', function(){
 			geocoder.query($('geo_search_input').value, function(err, data){
@@ -94,6 +99,21 @@
 				<div class="clr"></div>
 				<?php echo $this->form->getInput('marker_description'); ?>
 			</fieldset>
+			<fieldset class="adminform">
+				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_IMAGES'); ?></legend>
+				<dl>
+				<?php foreach($this->form->getFieldset('images') as $field){ ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php } ?>
+				</dl>
+				<div class="clr"></div>
+				<ul id="sortable-image-list">
+				<?php foreach($this->images as $obj){ ?>
+					<li><img src="<?php echo $base.$obj->image_thumb; ?>" title="" alt="" /></li>
+				<?php } ?>
+				</ul>
+			</fieldset>
 		</div>
 		<div class="width-40 fltlft">
 			<fieldset class="adminform">
@@ -118,7 +138,7 @@
 			    <legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_MARKER'); ?></legend>
 			    <dl>
 			    	<dt><label for="geo_search_input"><?php echo JText::_('COM_MAPBOX_GEO_SEARCH'); ?></label></dt>
-			    	<dd><input type="text" name="geo_search_input" id="geo_search_input" placeholder="<?php echo JText::_('COM_MAPBOX_GEO_SEARCH_PLACEHOLDER'); ?>" value="" /></dd>
+			    	<dd><input type="text" name="geo_search_input" id="geo_search_input" placeholder="<?php echo JText::_('COM_MAPBOX_GEO_SEARCH_PLACEHOLDER'); ?>" value="" /><button type="button" id="geo_search_button">Locate</button></dd>
 			    </dl>
 			    <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
 			    <div id="twukSoWweucw">

@@ -21,6 +21,11 @@
 			</field>
 		</fieldset>
 	</fields>
+	<fields name="images">
+		<fieldset name="images">
+			<field name="image_upload" type="file" label="COM_MAPBOX_IMAGE_UPLOAD_LABEL" description="COM_MAPBOX_IMAGE_UPLOAD_DESC" />
+		</fieldset>
+	</fields>
 	<fields name="params">
 		<fieldset name="params">
 			<field name="marker_size" type="list" default="medium" label="COM_MAPBOX_MARKER_SIZE_LABEL" description="COM_MAPBOX_MARKER_SIZE_DESC">

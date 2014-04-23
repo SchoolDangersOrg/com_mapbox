@@ -45,6 +45,7 @@ class MapboxViewMarkers extends JViewLegacy
 			JToolBarHelper::cancel('markers.cancel');
 			$this->form = $this->get('Form');
 			$this->map = $this->get('Map');
+			$this->images = $this->get('List','Images');
 			break;
 		}
 		parent::display($tpl);

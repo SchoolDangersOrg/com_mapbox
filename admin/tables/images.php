@@ -37,7 +37,7 @@ class TableImages extends JTable
 	/** @var int Foregin key */
 	var $marker_id          = null;
 	
-	public function TableMarkers(&$db){
+	public function TableImages(&$db){
 		parent::__construct('#__mapbox_images', 'image_id', $db);
 	}
 	

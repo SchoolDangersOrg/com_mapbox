@@ -5,6 +5,12 @@
 			<field name="default_id" type="menuitem" default="" label="COM_MAPBOX_DEFAULT_ROUTE_ID_LABEL" description="COM_MAPBOX_DEFAULT_ROUTE_ID_DESC" />
 		    <field name="default_api_key" type="text" required="true" filter="cmd" label="COM_MAPBOX_DEFAULT_API_KEY_LABEL" description="COM_MAPBOX_DEFAULT_API_KEY_DESC" />
 		</fieldset>
+		<fieldset name="images" label="COM_MAPBOX_OPTIONS_FIELDSET_IMAGES">
+			<field name="img_width" default="315" label="COM_MAPBOX_IMAGE_WIDTH_LABEL" description="COM_MAPBOX_IMAGE_WIDTH_DESC" />
+			<field name="img_height" default="400" label="COM_MAPBOX_IMAGE_HEIGHT_LABEL" description="COM_MAPBOX_IMAGE_HEIGHT_DESC" />
+			<field name="thumb_width" default="50" label="COM_MAPBOX_THUMB_WIDTH_LABEL" description="COM_MAPBOX_THUMB_WIDTH_DESC" />
+			<field name="thumb_height" default="50" label="COM_MAPBOX_THUMB_HEIGHT_LABEL" description="COM_MAPBOX_THUMB_HEIGHT_DESC" />
+		</fieldset>
 		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL">
 			<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC" class="inputbox" validate="rules" filter="rules" component="com_mapbox" section="component" />
 		</fieldset>

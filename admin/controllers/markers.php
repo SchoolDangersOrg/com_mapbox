@@ -246,6 +246,25 @@ class MapboxControllerMarkers extends JControllerForm
 			return true;
 		}
 	}
+
+	/**
+	 * Function that allows child controller access to model data
+	 * after the data has been saved.
+	 *
+	 * @param   JModelLegacy  $model      The data model object.
+	 * @param   array         $validData  The validated data.
+	 *
+	 * @return  void
+	 */
+	protected function postSaveHook(JModelForm $model, $validData = array())
+	{
+		$id = $model->getState($this->context . '.id');
+		$images = $this->getModel('Images');
+		if(!$images->uploadImages($id)){
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_MAPBOX_MSG_ERROR_IMAGE_UPLOAD'), 'warning');
+		}
+	}
+
 	/**
 	 * Method to save the submitted ordering values for records via AJAX.
 	 *

@@ -48,6 +48,7 @@ class MapboxModelImages extends JModelAdmin
 		parent::__construct($config);
 		$this->populateState();
 	}
+	
     /**
      * Retrieves the Item data
      *
@@ -65,7 +66,7 @@ class MapboxModelImages extends JModelAdmin
 
         return $this->_data;
     }
-
+	
 	/**
 	 * Method for getting the form from the model.
 	 *
@@ -84,7 +85,7 @@ class MapboxModelImages extends JModelAdmin
 		JError::raiseError(0, JText::sprintf('JLIB_FORM_INVALID_FORM_OBJECT', 'markers'));
 		return null;
 	}
-
+	
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
@@ -111,6 +112,7 @@ class MapboxModelImages extends JModelAdmin
 
 		return $this->_data;
 	}
+	
     /**
      * Method to retrieve the item data list
      *
@@ -124,24 +126,19 @@ class MapboxModelImages extends JModelAdmin
 		$option		= $mainframe->input->get('option', 'com_mapbox');
     	$scope		= $this->getName();
     	$row		= $this->getTable();
+    	$id			= $mainframe->input->get('marker_id', 0);
     	$filter		= array();
     	$sql        = $this->getDbo()->getQuery(true);
-    	if($search = addslashes($mainframe->getUserState($option.'.'.$scope.'.filter_search'))){
-    		$filter[] = "`map_name` LIKE '%{$search}%'";
-    	}
     	if(!$ordering = $mainframe->getUserState($option.'.'.$scope.'.filter_order')){
-    		$ordering = "map.ordering, marker.ordering";
+    		$ordering = "ordering";
     	}
     	if(!$order_dir = $mainframe->getUserState($option.'.'.$scope.'.filter_order_Dir')){
     		$order_dir = "ASC";
     	}
     	
-    	$sql->select("SQL_CALC_FOUND_ROWS marker.*, map.map_name, map.map_description, map.ordering AS `map_order`, marker.ordering AS `ordering`");
-    	$sql->select("v.title AS `access`, u.`name` AS `editor`");
-    	$sql->from("`#__mapbox_markers` AS marker");
-    	$sql->join("left", "`#__mapbox_maps` AS map USING(map_id)");
-    	$sql->join("left", "`#__viewlevels` v ON marker.`access` = v.`id`");
-    	$sql->join("left", "`#__users` u ON marker.`checked_out` = u.`id`");
+    	$sql->select("SQL_CALC_FOUND_ROWS *");
+    	$sql->from("`#__mapbox_images`");
+    	$sql->where("marker_id = {$id}");
 		if(count($filter)){
 		    $sql->where($filter);
 		}
@@ -150,53 +147,89 @@ class MapboxModelImages extends JModelAdmin
 
     	return $this->_data;
     }
+    
 	/**
-	 * A public method to retrieve map data based on a supplied marker id.
-	 *
-	 * @return  object An containing data parameter for the map.
-	 *
-	 * @since   1.0
-	 */
-	public function getMap()
-	{
-	    $sql = $this->_db->getQuery(true);
-	    $app = JFactory::getApplication();
-	    $input = $app->input;
-	    $id = $input->get('marker_id', 0, 'uint');
-	    $sql->select("map_api_key, map.attribs");
-	    $sql->from("#__mapbox_maps AS map");
-	    $sql->join("left", "#__mapbox_markers AS marker USING(map_id)");
-	    $sql->where("marker_id = {$id}");
-	    $this->_db->setQuery($sql);
-	    $result = $this->_db->loadObject();
-	    $json = json_decode($result->attribs);
-	    $json->map_api_key = $result->map_api_key;
-	    return $json;
-	}
-	/**
-	 * A public method to re-order a set of markers from drag and drop ordering.
-	 *
-	 * @param   array	$pks An array of private keys.
-	 * @param	array	$ordering An array of ordering values to be matched with the keys
+     * Upload an image
 	 *
 	 * @return  bool
 	 *
-	 * @since   1.0
+	 * @since   1.0.0.3
 	 */
-    public function saveMarkerOrder($pks, $ordering)
-    {
-    	$sql = $this->_db->getQuery(true);
-    	
-    	foreach($pks as $i => $id){
-			$sql->update("#__mapbox_markers");
-			$sql->set("ordering = ".$ordering[$i]);
-			$sql->where("marker_id = {$id}");
-			$this->_db->setQuery($sql);
-			$this->_db->execute();
-			$sql->clear();
+    public function uploadImages($id){
+    	if(!(int)$id){
+    		throw new UnexpectedValueException(JText::_('COM_MAPBOX_MSG_ERROR_INVALID_DATA'));
+    		return false;
     	}
+		$input = JFactory::getApplication()->input;
+    	$files = $input->files->get('jform');
+    	if(is_array($files['images'])){
+    		foreach($files['images'] as $original){
+    			switch($original['error']){
+    			case 0:
+    			// UPLOAD THE IMAGE
+    				$upload = $original['tmp_name'];
+    				$target = JPATH_ROOT."/images/mapbox/originals/".$original['name'];
+    				if(!JFile::upload($upload, $target)){ 
+    					return false;
+    				}
+    				$options = JComponentHelper::getParams('com_mapbox');
+    				$this->createImage($target, "/images/mapbox/fullsize/", $options->get('img_width'), $options->get('img_height'));
+    				$this->createImage($target, "/images/mapbox/thumbnails/", $options->get('thumb_width'), $options->get('thumb_height'));
+    				echo "it all goes to shit here!";
+    				$table = $this->getTable();
+					echo "<pre>";
+					print_r($table);
+					echo "</pre>";
+    				$table->bind(array(
+    					'image_id' => null,
+    					'marker_id' => $id,
+    					'image_original' => "images/mapbox/originals/".$original['name'],
+    					'image_src' => "images/mapbox/fullsize/".$original['name'],
+    					'image_thumb' => "images/mapbox/thumbnails/".$original['name']
+    				));
+    				$table->store();
+    				break;
+    			case 4:
+    			// NO IMAGE WAS SET DO NOTHING
+    				break;
+    			default:
+    			// THERE WAS A FILE UPLOAD ERROR
+    				return false;
+    				break;
+    			}
+    		}
+    	}
+    	echo "this is the end";
     	return true;
     }
+    
+    /**
+     * Create a cropped and resized image from the uploaded original
+     *
+     * @return bool
+	 *
+	 * @since   1.0.0.3
+     */
+    protected function createImage($src, $dest, $width, $height){
+    	$original = new JImage($src);
+    	$org_width = $original->getWidth();
+    	$org_height = $original->getHeight();
+    	if(($org_width / $width) < ($org_height / $height)){
+    		$original->resize($width, 0, false);
+    	}else{
+    		$original->resize(0, $height, false);
+    	}
+    	$thumb = $original->crop($width, $height, null, null, true);
+		$filename = pathinfo($original->getPath(), PATHINFO_FILENAME);
+		$extension = pathinfo($original->getPath(), PATHINFO_EXTENSION);
+		if(!$thumb->toFile(JPATH_ROOT.$dest.$filename.".".$extension)){
+			return false;
+		}
+		$original->destroy();
+		$thumb->destroy();
+		return true;
+    }
+    
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -232,8 +265,9 @@ class MapboxModelImages extends JModelAdmin
 	 */
 	protected function getReorderConditions($table)
 	{
-		return array("map_id = ".$table->map_id);
+		return array("marker_id = ".$table->marker_id);
 	}
+	
     /**
      * Method to retrieve a JPagination object
      *
@@ -250,6 +284,7 @@ class MapboxModelImages extends JModelAdmin
     
     	return $this->_pagination;
     }
+    
 	/**
 	 * A utility method for retrieving an item Id
 	 *
