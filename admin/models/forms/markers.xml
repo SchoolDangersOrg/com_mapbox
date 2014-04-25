@@ -147,6 +147,9 @@
 		    </field>
 		    <field name="marker_color" type="color" default="#1087BF" label="COM_MAPBOX_MARKER_COLOR_LABEL" description="COM_MAPBOX_MARKER_COLOR_DESC" />
 		</fieldset>
+		<fieldset name="templates">
+		    <field name="template" type="sql" query="SELECT * FROM `#__mapbox_templates`" key_field="template_layout" value_field="template_name" translate="true" label="COM_MAPBOX_MARKER_TEMPLATE_LABEL" description="COM_MAPBOX_MARKER_TEMPLATE_DESC" />
+		</fieldset>
 		<fieldset name="info">
 		    <field name="metric_1" type="text" label="COM_MAPBOX_METRIC_ONE_LABEL" description="COM_MAPBOX_METRIC_ONE_DESC" />
 		    <field name="metric_2" type="text" label="COM_MAPBOX_METRIC_TWO_LABEL" description="COM_MAPBOX_METRIC_TWO_DESC" />

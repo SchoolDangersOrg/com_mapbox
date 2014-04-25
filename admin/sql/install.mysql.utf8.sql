@@ -14,7 +14,7 @@ CREATE TABLE `#__mapbox_maps` (
 	`modified_by` INT(11) UNSIGNED DEFAULT 0,
 	`created_by` INT(11) UNSIGNED DEFAULT 0,
 	PRIMARY KEY (`map_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `#__mapbox_markers`;
 CREATE TABLE `#__mapbox_markers` (
@@ -34,7 +34,7 @@ CREATE TABLE `#__mapbox_markers` (
 	`map_id` INT(11) UNSIGNED DEFAULT NULL,
 	PRIMARY KEY (`marker_id`),
 	KEY `map_id` (`map_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `#__mapbox_images`;
 CREATE TABLE `#__mapbox_images` (
@@ -56,4 +56,12 @@ CREATE TABLE `#__mapbox_images` (
 	`marker_id` INT(11) UNSIGNED DEFAULT NULL,
 	PRIMARY KEY (`image_id`),
 	KEY `marker_id` (`marker_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `#__mapbox_templates`;
+CREATE TABLE `#__mapbox_templates` (
+    `template_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `template_name` VARCHAR(64) DEFAULT NULL,
+    `template_layout` VARCHAR(64) DEFAULT NULL,
+    PRIMARY KEY (`template_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;

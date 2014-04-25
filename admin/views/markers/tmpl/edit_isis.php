@@ -126,6 +126,30 @@
 				</div>
 				<?php } ?>
 			</fieldset>
+			<?php if($use_templates): ?>
+			<fieldset class="adminform">
+				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_TEMPLATES'); ?></legend>
+				<?php foreach($this->form->getFieldset('templates') as $field){ ?>
+				<div class="control-group">
+					<?php echo $field->label; ?>
+					<div class="controls">
+					    <?php echo $field->input; ?>
+					</div>
+				</div>
+				<?php } ?>
+			</fieldset>
+			<?php endif; ?>
+			<fieldset class="adminform">
+				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_INFO'); ?></legend>
+				<?php foreach($this->form->getFieldset('info') as $field){ ?>
+				<div class="control-group">
+					<?php echo $field->label; ?>
+					<div class="controls">
+					    <?php echo $field->input; ?>
+					</div>
+				</div>
+				<?php } ?>
+			</fieldset>
 		</div>
 	</div>
 </form>

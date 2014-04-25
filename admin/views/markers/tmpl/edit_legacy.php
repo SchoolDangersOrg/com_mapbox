@@ -126,8 +126,19 @@
 				<?php } ?>
 				</dl>
 			</fieldset>
+			<?php if($use_templates): ?>
 			<fieldset class="adminform">
-				<legend><?php echo JText::_('Info'); ?></legend>
+				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_TEMPLATES'); ?></legend>
+				<dl>
+				<?php foreach($this->form->getFieldset('templates') as $field){ ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php } ?>
+				</dl>
+			</fieldset>
+			<?php endif; ?>
+			<fieldset class="adminform">
+				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_INFO'); ?></legend>
 				<dl>
 				<?php foreach($this->form->getFieldset('info') as $field){ ?>
 					<dt><?php echo $field->label; ?></dt>
