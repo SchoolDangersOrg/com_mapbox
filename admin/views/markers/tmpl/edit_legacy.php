@@ -4,6 +4,7 @@
 	JHtml::_('behavior.formvalidation');
 	$uri = JURI::getInstance();
 	$base = $uri->root();
+	$use_templates = (count($this->templates) > 0);
 	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
@@ -12,6 +13,10 @@
     $doc->addStyleDeclaration("dl.base { width: 50%; float: left; }");
     $doc->addStyleDeclaration("ul#sortable-image-list li { overflow: hidden; }");
     $doc->addStyleDeclaration("ul#sortable-image-list li img { margin: 0; }");
+    $doc->addStyleDeclaration("ul#sortable-image-list li img { margin: 0; }");
+    $doc->addStyleDeclaration("ul#sortable-image-list div.toolbar { display: block; float: left; overflow: hidden;}");
+    $doc->addStyleDeclaration("ul#sortable-image-list div.toolbar a.button { padding: 5px 10px; display: block; overflow: hidden;}");
+    $doc->addStyleDeclaration("ul#sortable-image-list div.info { padding: 15px 0 0 25px; font-size: 1.4em; }");
 ?>
 
 <script type="text/javascript">
@@ -30,7 +35,57 @@
 			return re_cmd.test(value);
 		});
 		
-		new Sortables($('sortable-image-list'), { handle: 'img' });
+		var sortable = new Sortables($('sortable-image-list'), { 
+		    handle: 'li div.handle',
+		    onSort: function(element, clone){
+                var i = 1;
+                var pks = [];
+                var ordering = [];
+                re_image_id = /^image_id_(\d+)$/
+                // GET THE IDS AND ORDERING FROM THE SORTED LIST
+                $$('#sortable-image-list li').each(function(item, index){
+                    if(re_image_id.test(item.className)){
+                        pks.push(RegExp.$1);
+                        ordering.push(i++);
+                    }
+                });
+                // AJAX CALL TO SORT FUNCTION
+                new Request.JSON({
+                    url: "index.php",
+                    data: {
+                        "option": "com_mapbox",
+                        "task": "images.saveOrderAjax",
+                        "cid": pks,
+                        "order": ordering,
+                        "<?php echo JSession::getFormToken(); ?>": 1
+                    },
+                    onSuccess: function(someData, someText){},
+                    onError: function(someText, someError){}
+                }).send();
+            }
+        });
+		
+		
+		$$('div.toolbar a.button').addEvent('click', function(evt){
+		    evt.preventDefault();
+		    var target = event.target;
+		    var target_item = $(target).getParents('li')[0];
+		    re_image_id = /^image_id_(\d+)$/
+		    re_image_id.test(target_item.className);
+		    var image_id = [RegExp.$1];
+            // AJAX CALL TO SORT FUNCTION
+            new Request.JSON({
+                url: "index.php",
+                data: {
+                    "option": "com_mapbox",
+                    "task": "images.delete",
+                    "cid": image_id,
+                    "<?php echo JSession::getFormToken(); ?>": 1
+                },
+                onSuccess: function(someData, someText){ $(target_item).destroy();},
+                onError: function(someText, someError){}
+            }).send();
+		});
 		
 		$('geo_search_button').addEvent('click', function(){
 			geocoder.query($('geo_search_input').value, function(err, data){
@@ -78,7 +133,7 @@
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="hidemainmenu" value="0" />
 	<input type="hidden" name="marker_id" value="<?php echo $this->form->getValue('marker_id'); ?>" />
-	<?php echo JHTML::_('form.token')."\n"; ?>
+	<?php echo JHtml::_('form.token')."\n"; ?>
 	<div id="editcell">
 		<div class="width-60 fltlft">
 			<fieldset class="adminform">
@@ -111,7 +166,22 @@
 				<div class="clr"></div>
 				<ul id="sortable-image-list">
 				<?php foreach($this->images as $obj){ ?>
-					<li><div><img src="<?php echo $base.$obj->image_thumb; ?>" title="" alt="" /></div></li>
+					<li class="image_id_<?php echo $obj->image_id; ?>">
+					    <div class="handle">
+					        <img src="<?php echo $base.$obj->image_thumb; ?>" title="" alt="" />
+					    </div>
+					    <div class="toolbar">
+					        <a href="#" class="button edit">
+					            <img src="components/com_mapbox/images/application_form_edit.png" alt="Edit" title="" />
+					        </a>
+					        <a href="#" class="button delete">
+					            <img src="components/com_mapbox/images/delete.png" alt="Delete" title="" />
+					        </a>
+					    </div>
+					    <div class="info">
+					        <strong>Source File:</strong> <?php echo $obj->image_original; ?>
+					    </div>
+					</li>
 				<?php } ?>
 				</ul>
 			</fieldset>

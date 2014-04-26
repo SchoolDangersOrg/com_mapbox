@@ -150,6 +150,31 @@ class MapboxModelImages extends JModelAdmin
     }
     
 	/**
+	 * A public method to re-order a set of markers from drag and drop ordering.
+	 *
+	 * @param   array	$pks An array of private keys.
+	 * @param	array	$ordering An array of ordering values to be matched with the keys
+	 *
+	 * @return  bool
+	 *
+	 * @since   1.0
+	 */
+    public function saveImageOrder($pks, $ordering)
+    {
+    	$sql = $this->_db->getQuery(true);
+    	
+    	foreach($pks as $i => $id){
+			$sql->update("#__mapbox_images");
+			$sql->set("ordering = ".$ordering[$i]);
+			$sql->where("image_id = {$id}");
+			$this->_db->setQuery($sql);
+			$this->_db->execute();
+			$sql->clear();
+    	}
+    	return true;
+    }
+    
+	/**
      * Upload an image
 	 *
 	 * @return  bool
@@ -196,7 +221,6 @@ class MapboxModelImages extends JModelAdmin
     			}
     		}
     	}
-    	echo "this is the end";
     	return true;
     }
     

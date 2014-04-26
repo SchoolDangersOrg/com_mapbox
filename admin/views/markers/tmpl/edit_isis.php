@@ -4,6 +4,7 @@
 	JHtml::_('behavior.formvalidation');
 	$uri = JURI::getInstance();
 	$base = $uri->root();
+	$use_templates = (count($this->templates) > 0);
 	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
     $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");

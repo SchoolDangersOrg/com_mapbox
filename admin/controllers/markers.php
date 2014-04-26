@@ -259,6 +259,7 @@ class MapboxControllerMarkers extends JControllerForm
 	protected function postSaveHook(JModelForm $model, $validData = array())
 	{
 		$id = $model->getState($this->context . '.id');
+		$model->uploadImages($id);
 		$images = $this->getModel('Images');
 		if(!$images->uploadImages($id)){
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_MAPBOX_MSG_ERROR_IMAGE_UPLOAD'), 'warning');

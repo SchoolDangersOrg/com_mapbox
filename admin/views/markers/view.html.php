@@ -46,6 +46,7 @@ class MapboxViewMarkers extends JViewLegacy
 			$this->form = $this->get('Form');
 			$this->map = $this->get('Map');
 			$this->images = $this->get('List','Images');
+			$this->templates = $this->get('Templates');
 			break;
 		}
 		parent::display($tpl);

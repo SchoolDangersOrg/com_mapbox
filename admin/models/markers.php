@@ -11,6 +11,7 @@
 defined('_JEXEC') or die();
 
 jimport( 'joomla.application.component.modeladmin' );
+jimport( 'joomla.filesystem.file' );
 
 class MapboxModelMarkers extends JModelAdmin
 {
@@ -197,6 +198,51 @@ class MapboxModelMarkers extends JModelAdmin
     	}
     	return true;
     }
+    
+	/**
+     * Upload an image
+	 *
+	 * @return  bool
+	 *
+	 * @since   1.0.0.3
+	 */
+    public function uploadImages($id){
+    	if(!(int)$id){
+    		throw new UnexpectedValueException(JText::_('COM_MAPBOX_MSG_ERROR_INVALID_DATA'));
+    		return false;
+    	}
+		$input = JFactory::getApplication()->input;
+    	$files = $input->files->get('jform');
+    	if(is_array($files['params'])){
+    		foreach($files['params'] as $original){
+    			switch($original['error']){
+    			case 0:
+    			// UPLOAD THE IMAGE
+    				$upload = $original['tmp_name'];
+    				$target = JPATH_ROOT."/images/mapbox/markers/".$original['name'];
+    				if(!JFile::upload($upload, $target)){ 
+    					return false;
+    				}
+    				$table = $this->getTable();
+    				$table->load($id);
+    				$options = json_decode($table->attribs);
+    				$options->marker_image = "images/mapbox/markers/".$original['name'];
+    				$table->attribs = json_encode($options);
+    				$table->store();
+    				break;
+    			case 4:
+    			// NO IMAGE WAS SET DO NOTHING
+    				break;
+    			default:
+    			// THERE WAS A FILE UPLOAD ERROR
+    				return false;
+    				break;
+    			}
+    		}
+    	}
+    	return true;
+    }
+    
 	/**
 	 * Method to auto-populate the model state.
 	 *

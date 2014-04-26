@@ -76,15 +76,17 @@ class MapboxControllerImages extends JControllerForm
 			// REMOVE THE ITEMS.
 			if ($model->delete($cid))
 			{
-				$this->setMessage(JText::plural('COM_MAPBOX_N_ITEMS_DELETED', count($cid)));
+				//$this->setMessage(JText::plural('COM_MAPBOX_N_ITEMS_DELETED', count($cid)));
 			}
 			else
 			{
-				$this->setMessage($model->getError());
+				//$this->setMessage($model->getError());
 			}
 		}
-
-		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+        
+        echo 1;
+        JFactory::getApplication()->close();
+		//$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
 	}
 	/**
 	 * Method to publish a list of items
@@ -256,8 +258,9 @@ class MapboxControllerImages extends JControllerForm
 	public function saveOrderAjax()
 	{
 		// Get the input
-		$pks = $this->input->post->get('cid', array(), 'array');
-		$order = $this->input->post->get('order', array(), 'array');
+		$app = JFactory::getApplication();
+		$pks = $app->input->post->get('cid', array(), 'array');
+		$order = $app->input->post->get('order', array(), 'array');
 
 		// Sanitize the input
 		JArrayHelper::toInteger($pks);
@@ -267,7 +270,7 @@ class MapboxControllerImages extends JControllerForm
 		$model = $this->getModel();
 
 		// Save the ordering
-		$return = $model->saveMarkerOrder($pks, $order);
+		$return = $model->saveImageOrder($pks, $order);
 		
 		if ($return)
 		{
