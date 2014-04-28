@@ -99,11 +99,18 @@
 		geocoder = L.mapbox.geocoder('<?php echo $key; ?>');
 		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], <?php echo @(int)$this->map->zoom; ?>);
 		marker = L.marker([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], {
+		    <?php if($this->form->getValue('marker_image', 'params')): ?>
+		    icon: L.mapbox.marker.icon({
+		        "iconURL": "<?php echo $base.$this->form->getValue('marker_image', 'params'); ?>",
+		        "iconSize": [25, 41]
+		    }),
+		    <?php else: ?>
 		    icon: L.mapbox.marker.icon({
 		        "marker-size": "<?php echo $this->form->getValue('params.marker_size'); ?>",
 		        "marker-symbol": "<?php echo $this->form->getValue('params.marker_symbol'); ?>",
-		        "marker-color": "<?php echo $this->form->getValue('params.marker_color'); ?>",
+		        "marker-color": "<?php echo $this->form->getValue('params.marker_color'); ?>"
 		    }),
+		    <?php endif; ?>
 		    draggable: true
 		}).addTo(map);
 		marker.on('dragend', function(){
