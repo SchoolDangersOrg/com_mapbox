@@ -175,6 +175,21 @@ class MapboxModelMarkers extends JModelAdmin
 	    return $json;
 	}
 	/**
+	 * A public method to retrieve map data based on a supplied marker id.
+	 *
+	 * @return  object An containing data parameter for the map.
+	 *
+	 * @since   1.0
+	 */
+	 public function getTemplates()
+	 {
+	    $sql = $this->_db->getQuery(true);
+	    $sql->select("*");
+	    $sql->from("`#__mapbox_templates`");
+	    $this->_db->setQuery($sql);
+	    return $this->_db->loadObjectList();
+	 }
+	/**
 	 * A public method to re-order a set of markers from drag and drop ordering.
 	 *
 	 * @param   array	$pks An array of private keys.
