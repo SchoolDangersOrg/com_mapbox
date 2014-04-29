@@ -26,6 +26,11 @@
 			<field name="image_upload" type="file" label="COM_MAPBOX_IMAGE_UPLOAD_LABEL" description="COM_MAPBOX_IMAGE_UPLOAD_DESC" />
 		</fieldset>
 	</fields>
+	<fields name="icons">
+		<fieldset name="icons">
+			<field name="icon_upload" type="file" label="COM_MAPBOX_ICON_UPLOAD_LABEL" description="COM_MAPBOX_ICON_UPLOAD_DESC" />
+		</fieldset>
+	</fields>
 	<fields name="params">
 		<fieldset name="params">
 			<field name="marker_size" type="list" default="medium" label="COM_MAPBOX_MARKER_SIZE_LABEL" description="COM_MAPBOX_MARKER_SIZE_DESC">
@@ -146,10 +151,18 @@
                 <option value="scooter">Scooter</option>
 		    </field>
 		    <field name="marker_color" type="color" default="#1087BF" label="COM_MAPBOX_MARKER_COLOR_LABEL" description="COM_MAPBOX_MARKER_COLOR_DESC" />
-		    <field name="marker_image" type="file" label="COM_MAPBOX_MARKER_IMAGE_LABEL" description="COM_MAPBOX_MARKER_IMAGE_DESC" />
 		</fieldset>
 		<fieldset name="templates">
 		    <field name="template" type="sql" query="SELECT * FROM `#__mapbox_templates`" key_field="template_layout" value_field="template_name" translate="true" label="COM_MAPBOX_MARKER_TEMPLATE_LABEL" description="COM_MAPBOX_MARKER_TEMPLATE_DESC" />
+		</fieldset>
+		<fieldset name="custom">
+		    <field name="marker_image" type="text" label="COM_MAPBOX_MARKER_IMAGE_LABEL" description="COM_MAPBOX_MARKER_IMAGE_DESC" />
+		    <field name="marker_width" type="text" filter="int" label="COM_MAPBOX_MARKER_WIDTH_LABEL" description="COM_MAPBOX_MARKER_WIDTH_DESC" />
+		    <field name="marker_height" type="text" filter="int" label="COM_MAPBOX_MARKER_HEIGHT_LABEL" description="COM_MAPBOX_MARKER_HEIGHT_DESC" />
+		    <field name="marker_origin_x" type="text" filter="int" label="COM_MAPBOX_MARKER_ORIGIN_X_LABEL" description="COM_MAPBOX_MARKER_ORIGIN_X_DESC" />
+		    <field name="marker_origin_y" type="text" filter="int" label="COM_MAPBOX_MARKER_ORIGIN_Y_LABEL" description="COM_MAPBOX_MARKER_ORIGIN_Y_DESC" />
+		    <field name="window_origin_x" type="text" filter="int" label="COM_MAPBOX_WINDOW_ORIGIN_X_LABEL" description="COM_MAPBOX_WINDOW_ORIGIN_X_DESC" />
+		    <field name="window_origin_y" type="text" filter="int" label="COM_MAPBOX_WINDOW_ORIGIN_Y_LABEL" description="COM_MAPBOX_WINDOW_ORIGIN_Y_DESC" />
 		</fieldset>
 		<fieldset name="info">
 		    <field name="metric_1" type="text" label="COM_MAPBOX_METRIC_ONE_LABEL" description="COM_MAPBOX_METRIC_ONE_DESC" />
@@ -157,6 +170,9 @@
 		    <field name="metric_3" type="text" label="COM_MAPBOX_METRIC_THREE_LABEL" description="COM_MAPBOX_METRIC_THREE_DESC" />
 		    <field name="metric_4" type="text" label="COM_MAPBOX_METRIC_FOUR_LABEL" description="COM_MAPBOX_METRIC_FOUR_DESC" />
 		    <field name="metric_5" type="text" label="COM_MAPBOX_METRIC_FIVE_LABEL" description="COM_MAPBOX_METRIC_FIVE_DESC" />
+		    <field name="metric_6" type="text" label="COM_MAPBOX_METRIC_SIX_LABEL" description="COM_MAPBOX_METRIC_SIX_DESC" />
+		    <field name="metric_7" type="text" label="COM_MAPBOX_METRIC_SEVEN_LABEL" description="COM_MAPBOX_METRIC_SEVEN_DESC" />
+		    <field name="metric_8" type="text" label="COM_MAPBOX_METRIC_EIGHT_LABEL" description="COM_MAPBOX_METRIC_EIGHT_DESC" />
 		</fieldset>
 	</fields>
 </form>

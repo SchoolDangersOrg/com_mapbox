@@ -213,7 +213,6 @@ class MapboxModelMarkers extends JModelAdmin
     	}
     	return true;
     }
-    
 	/**
      * Upload an image
 	 *
@@ -228,8 +227,8 @@ class MapboxModelMarkers extends JModelAdmin
     	}
 		$input = JFactory::getApplication()->input;
     	$files = $input->files->get('jform');
-    	if(is_array($files['params'])){
-    		foreach($files['params'] as $original){
+    	if(is_array($files['icons'])){
+    		foreach($files['icons'] as $original){
     			switch($original['error']){
     			case 0:
     			// UPLOAD THE IMAGE
@@ -238,10 +237,17 @@ class MapboxModelMarkers extends JModelAdmin
     				if(!JFile::upload($upload, $target)){ 
     					return false;
     				}
+    				$sizes = getimagesize($target);
     				$table = $this->getTable();
     				$table->load($id);
     				$options = json_decode($table->attribs);
     				$options->marker_image = "images/mapbox/markers/".$original['name'];
+    				$options->marker_width = $sizes[0];
+    				$options->marker_height = $sizes[1];
+    				$options->marker_origin_x = floor($options->marker_width/2);
+    				$options->marker_origin_y = $options->marker_height;
+    				$options->window_origin_x = 0;
+    				$options->window_origin_y = (-1 * $options->marker_height);
     				$table->attribs = json_encode($options);
     				$table->store();
     				break;

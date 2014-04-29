@@ -99,20 +99,16 @@
 		geocoder = L.mapbox.geocoder('<?php echo $key; ?>');
 		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], <?php echo @(int)$this->map->zoom; ?>);
 		marker = L.marker([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], {
-		    <?php if($this->form->getValue('marker_image', 'params')): ?>
-		    icon: L.mapbox.marker.icon({
-		        "iconURL": "<?php echo $base.$this->form->getValue('marker_image', 'params'); ?>",
-		        "iconSize": [25, 41]
-		    }),
-		    <?php else: ?>
 		    icon: L.mapbox.marker.icon({
 		        "marker-size": "<?php echo $this->form->getValue('params.marker_size'); ?>",
 		        "marker-symbol": "<?php echo $this->form->getValue('params.marker_symbol'); ?>",
 		        "marker-color": "<?php echo $this->form->getValue('params.marker_color'); ?>"
 		    }),
-		    <?php endif; ?>
 		    draggable: true
 		}).addTo(map);
+		<?php if($this->form->getValue('params.marker_image')): ?>
+		marker.setIcon(L.icon({ iconUrl: "/<?php echo $this->form->getValue('params.marker_image'); ?>", iconSize: [<?php echo $this->form->getValue('params.marker_width'); ?>, <?php echo $this->form->getValue('params.marker_height'); ?>], iconAnchor: [<?php echo $this->form->getValue('params.marker_origin_x'); ?>, <?php echo $this->form->getValue('params.marker_origin_y'); ?>], popupAnchor: [<?php echo $this->form->getValue('params.window_origin_x'); ?>, <?php echo $this->form->getValue('params.window_origin_y'); ?>] }));
+		<?php endif; ?>
 		marker.on('dragend', function(){
 		    var coords = marker.getLatLng();
 		    $('jform_marker_lat').value = coords.lat;
@@ -230,9 +226,18 @@
 			    	<dd><input type="text" name="geo_search_input" id="geo_search_input" placeholder="<?php echo JText::_('COM_MAPBOX_GEO_SEARCH_PLACEHOLDER'); ?>" value="" /><button type="button" id="geo_search_button">Locate</button></dd>
 			    </dl>
 			    <div style="position: relative; width: 100%; height: 300px; overflow: hidden;">
-			    <div id="twukSoWweucw">
+                    <div id="twukSoWweucw"></div>
 			    </div>
-			    </div>
+				<dl>
+				<?php foreach($this->form->getFieldset('icons') as $field){ ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php } ?>
+				<?php foreach($this->form->getFieldset('custom') as $field){ ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php } ?>
+				</dl>
 			</fieldset>
 		</div>
 	</div>
