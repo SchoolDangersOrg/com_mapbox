@@ -7,7 +7,7 @@
 	<authorEmail>alonzo.turner@subtextproductions.com</authorEmail>
 	<copyright>COM_MAPBOX_COMPONENT_COPYRIGHT</copyright>
 	<license>COM_MAPBOX_COMPONENT_LICENSE</license>
-	<version>1.0.0.3</version>
+	<version>1.0.0.4</version>
 	<description><![CDATA[COM_MAPBOX_COMPONENT_DESCRIPTION]]></description>
 	<scriptfile>install.php</scriptfile>
 	<install>
