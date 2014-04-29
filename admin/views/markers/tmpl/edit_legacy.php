@@ -89,10 +89,10 @@
 		
 		$('geo_search_button').addEvent('click', function(){
 			geocoder.query($('geo_search_input').value, function(err, data){
-				marker.setLatLng(data.latlng);
-				map.fitBounds(data.lbounds);
 				$('jform_marker_lat').value = data.latlng[0];
 				$('jform_marker_lng').value = data.latlng[1];
+				marker.setLatLng(data.latlng);
+				map.fitBounds(data.lbounds);
 			});
 		});
 		
