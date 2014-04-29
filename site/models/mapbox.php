@@ -73,20 +73,67 @@ class MapboxModelMapbox extends JModelLegacy
 		$collection = array("type"=>"FeatureCollection", "features"=>array());
 		foreach($this->_data as $record){
 		    $params = json_decode($record->attribs);
-		    $geo = array(
-		        "type"      =>  "Feature",
-		        "geometry"  =>  array(
-		            "type"=>"Point",
-		            "coordinates"=>array($record->marker_lng,$record->marker_lat)
-		        ),
-		        "properties"=>  array(
-		            "title"=>$record->marker_name,
-		            "description"=>$record->marker_description,
-		            "marker-symbol"=>$params->marker_symbol,
-		            "marker-size"=>$params->marker_size,
-		            "marker-color"=>$params->marker_color
-		        )
-		    );
+		    $sql->clear();
+            $sql->select("*");
+            $sql->from("`#__mapbox_images`");
+            $sql->where("marker_id = {$record->marker_id}");
+            $sql->order("`ordering` ASC");
+            $this->_db->setQuery($sql);
+            $images = $this->_db->loadObjectList();
+		    if($params->marker_image){
+		        $icon_obj = new stdClass();
+		        $icon_obj->iconUrl = "/".$params->marker_image;
+		        $icon_obj->iconSize = [$params->marker_width, $params->marker_height];
+		        $icon_obj->iconAnchor = [$params->marker_origin_x, $params->marker_origin_y];
+		        $icon_obj->popupAnchor = [$params->window_origin_x, $params->window_origin_y];
+                $geo = array(
+                    "type"      =>  "Feature",
+                    "geometry"  =>  array(
+                        "type"=>"Point",
+                        "coordinates"=>array($record->marker_lng,$record->marker_lat)
+                    ),
+                    "properties"=>  array(
+                        "title"=>$record->marker_name,
+                        "description"=>$record->marker_description,
+                        "icon"=>$icon_obj,
+                        "template"=>$params->template,
+                        "metric_1"=>$params->metric_1,
+                        "metric_2"=>$params->metric_2,
+                        "metric_3"=>$params->metric_3,
+                        "metric_4"=>$params->metric_4,
+                        "metric_5"=>$params->metric_5,
+                        "metric_6"=>$params->metric_6,
+                        "metric_7"=>$params->metric_7,
+                        "metric_8"=>$params->metric_8,
+                        "images"=>$images
+                    )
+                );
+		    }else{
+                $geo = array(
+                    "type"      =>  "Feature",
+                    "geometry"  =>  array(
+                        "type"=>"Point",
+                        "coordinates"=>array($record->marker_lng,$record->marker_lat)
+                    ),
+                    "properties"=>  array(
+                        "title"=>$record->marker_name,
+                        "description"=>$record->marker_description,
+                        "marker-symbol"=>$params->marker_symbol,
+                        "marker-size"=>$params->marker_size,
+                        "marker-color"=>$params->marker_color,
+                        "template"=>$params->template,
+                        "metric_1"=>$params->metric_1,
+                        "metric_2"=>$params->metric_2,
+                        "metric_3"=>$params->metric_3,
+                        "metric_4"=>$params->metric_4,
+                        "metric_5"=>$params->metric_5,
+                        "metric_6"=>$params->metric_6,
+                        "metric_7"=>$params->metric_7,
+                        "metric_8"=>$params->metric_8,
+                        "images"=>$images
+                    )
+                );
+            }
 		    $collection['features'][] = $geo;
 		}
 		return $collection;
