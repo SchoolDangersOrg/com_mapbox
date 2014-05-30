@@ -67,4 +67,7 @@
 			<folder>views</folder>
 		</files>
 	</administration>
+	<updateservers>
+		<server type="extension" priority="1" name="Subtext Productions Stable Release">https://www.subtextproductions.com/updates/joomla/mapbox/xml/extension.xml</server>
+	</updateservers>
 </extension>
