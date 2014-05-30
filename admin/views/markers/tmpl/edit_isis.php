@@ -79,25 +79,44 @@
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_BASIC'); ?></legend>
 				<div class="row-fluid">
-				    <div class="span4">
-                        <?php foreach($this->form->getFieldset('base') as $field){ ?>
-                        <div class="control-group">	
-                            <?php echo $field->label; ?>
-                            <div class="controls">
-                                <?php echo $field->input; ?>
+				    <div class="span8">
+				        <div class="row-fluid">
+				            <div class="span6">
+                                <?php foreach($this->form->getFieldset('base') as $field){ ?>
+                                <div class="control-group">	
+                                    <?php echo $field->label; ?>
+                                    <div class="controls">
+                                        <?php echo $field->input; ?>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            </div>
+                            <div class="span6">
+                                <?php foreach($this->form->getFieldset('params') as $field){ ?>
+                                <div class="control-group">	
+                                    <?php echo $field->label; ?>
+                                    <div class="controls">
+                                        <?php echo $field->input; ?>
+                                    </div>
+                                </div>
+                                <?php } ?>
                             </div>
                         </div>
-                        <?php } ?>
-                    </div>
-				    <div class="span4">
-                        <?php foreach($this->form->getFieldset('params') as $field){ ?>
-                        <div class="control-group">	
-                            <?php echo $field->label; ?>
-                            <div class="controls">
-                                <?php echo $field->input; ?>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <fieldset class="adminform">
+                                    <legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_IMAGES'); ?></legend>
+                                    <?php foreach($this->form->getFieldset('images') as $field){ ?>
+                                    <div class="control-group">	
+                                        <?php echo $field->label; ?>
+                                        <div class="controls">
+                                            <?php echo $field->input; ?>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                </fieldset>
                             </div>
                         </div>
-                        <?php } ?>
                     </div>
 				    <div class="span4">
                         <div class="control-group">
@@ -140,6 +159,25 @@
 				<?php } ?>
 			</fieldset>
 			<?php endif; ?>
+			<fieldset class="adminform">
+			    <legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_MARKER'); ?></legend>
+				<?php foreach($this->form->getFieldset('icons') as $field){ ?>
+				<div class="control-group">
+					<?php echo $field->label; ?>
+					<div class="controls">
+					    <?php echo $field->input; ?>
+					</div>
+				</div>
+				<?php } ?>
+				<?php foreach($this->form->getFieldset('custom') as $field){ ?>
+				<div class="control-group">
+					<?php echo $field->label; ?>
+					<div class="controls">
+					    <?php echo $field->input; ?>
+					</div>
+				</div>
+				<?php } ?>
+			</fieldset>
 			<fieldset class="adminform">
 				<legend><?php echo JText::_('COM_MAPBOX_FORM_LEGEND_INFO'); ?></legend>
 				<?php foreach($this->form->getFieldset('info') as $field){ ?>
