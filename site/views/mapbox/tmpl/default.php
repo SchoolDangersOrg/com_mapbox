@@ -29,6 +29,12 @@ window.addEvent('domready', function(){
 });
 //]]>
 </script>
+<?php if($params->content_position == 1){ ?>
+<?php echo $this->data->map_description; ?>
+<?php } ?>
 <div style="position: relative; width: <?php echo $params->map_width; ?>; min-height: <?php echo $params->map_height; ?>; overflow: hidden;">
 	<div id="<?php echo $this->data->map_alias; ?>"></div>
 </div>
+<?php if($params->content_position == 2){ ?>
+<?php echo $this->data->map_description; ?>
+<?php } ?>

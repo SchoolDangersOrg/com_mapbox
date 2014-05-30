@@ -29,6 +29,11 @@
 			<field name="map_height" type="text" required="true" default="350px" label="COM_MAPBOX_MAP_HEIGHT_LABEL" description="COM_MAPBOX_MAP_HEIGHT_DESC" />
 			<field name="center_lat" type="hidden" default="20.008834970581525" label="COM_MAPBOX_MAP_LAT_LABEL" description="COM_MAPBOX_MAP_LAT_DESC"  />
 			<field name="center_lng" type="hidden" default="-35.67246318304168" label="COM_MAPBOX_MAP_LNG_LABEL" description="COM_MAPBOX_MAP_LNG_DESC"  />
+			<field name="content_position" type="list" default="0" filter="uint" label="COM_MAPBOX_CONTENT_POSITION_LABEL" description="COM_MAPBOX_CONTENT_POSITION_DESC">
+			    <option value="0">COM_MAPBOX_OPTION_NONE</option>
+			    <option value="1">COM_MAPBOX_OPTION_BEFORE</option>
+			    <option value="2">COM_MAPBOX_OPTION_AFTER</option>
+			</field>
 			<field name="zoom" type="hidden" default="2" />
 		</fieldset>
 	</fields>
