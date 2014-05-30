@@ -73,6 +73,7 @@ class MapboxModelMapbox extends JModelLegacy
 		$collection = array("type"=>"FeatureCollection", "features"=>array());
 		foreach($this->_data as $record){
 		    $params = json_decode($record->attribs);
+		    if(!isset($params->template)) $params->template = '';
 		    $sql->clear();
             $sql->select("*");
             $sql->from("`#__mapbox_images`");
