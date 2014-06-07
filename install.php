@@ -97,7 +97,7 @@ class com_mapboxInstallerScript
 	    if(file_exists(JPATH_ROOT."/images/mapbox")){
 	        $this->deleteDir(JPATH_ROOT."/images/mapbox");
 	    }
-		if(!isset($this->release)) $this->release = '1.0.0.5';
+		if(!isset($this->release)) $this->release = '1.0.0.6';
 		echo '<p>' . JText::sprintf('COM_MAPBOX_MSG_SUCCESS_UNINSTALL', $this->release) . '</p>';
 	}
  
