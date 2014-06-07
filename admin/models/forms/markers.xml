@@ -173,6 +173,8 @@
 		    <field name="metric_6" type="text" label="COM_MAPBOX_METRIC_SIX_LABEL" description="COM_MAPBOX_METRIC_SIX_DESC" />
 		    <field name="metric_7" type="text" label="COM_MAPBOX_METRIC_SEVEN_LABEL" description="COM_MAPBOX_METRIC_SEVEN_DESC" />
 		    <field name="metric_8" type="text" label="COM_MAPBOX_METRIC_EIGHT_LABEL" description="COM_MAPBOX_METRIC_EIGHT_DESC" />
+		    <field name="metric_9" type="text" label="COM_MAPBOX_METRIC_NINE_LABEL" description="COM_MAPBOX_METRIC_NINE_DESC" />
+		    <field name="metric_10" type="text" label="COM_MAPBOX_METRIC_TEN_LABEL" description="COM_MAPBOX_METRIC_TEN_DESC" />
 		</fieldset>
 	</fields>
 </form>
