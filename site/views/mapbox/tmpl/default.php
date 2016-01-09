@@ -3,14 +3,16 @@
 	defined('_JEXEC') or die('Restricted access');
 	JHtml::_('behavior.framework', true);
 	$doc = JFactory::getDocument();
-	$doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
-	$doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+	$doc->addScript("https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js");
+	$doc->addStylesheet("https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css");
 	$doc->addStyleDeclaration("#".$this->data->map_alias." { position: absolute; width: 100%; height: 100%;}");
 	$params = json_decode($this->data->attribs);
 ?>
 <script type="text/javascript">
 //<![CDATA[
+L.mapbox.accessToken = 'pk.eyJ1Ijoic2Nob29sZGFuZ2VycyIsImEiOiIwNWU5NzdkZGFlZTA5MDJmYTY4YmY2Y2M1YmM0YmY0MiJ9.9elPgUKkVhC9S5MmISaxhg';
 window.addEvent('domready', function(){
+
     map = L.mapbox.map('<?php echo $this->data->map_alias; ?>', '<?php echo $this->data->map_api_key; ?>').setView([<?php echo $this->data->params->get('center_lat'); ?>, <?php echo $this->data->params->get('center_lng'); ?>], <?php echo $this->data->params->get('zoom'); ?>);
     var someRequest = new Request.JSON({
         method: "post",
