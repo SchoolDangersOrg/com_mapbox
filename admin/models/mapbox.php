@@ -112,6 +112,10 @@ class MapboxModelMapbox extends JModelAdmin
 		    $options = JComponentHelper::getParams('com_mapbox');
 		    $this->_data['map_api_key'] = $options->get('default_api_key');
 		}
+        if(@!$this->_data['map_access_token']){
+		    $options = JComponentHelper::getParams('com_mapbox');
+		    $this->_data['map_access_token'] = $options->get('default_access_token');
+		}
 
 		return $this->_data;
 	}

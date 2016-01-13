@@ -3,9 +3,10 @@
     JHtml::_('behavior.tooltip');
     JHtml::_('behavior.formvalidation');
 	$key = JComponentHelper::getParams('com_mapbox')->get('default_api_key');
+    $access_token = JComponentHelper::getParams('com_mapbox')->get('default_access_token');
 	$doc = JFactory::getDocument();
-    $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
-    $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+    $doc->addScript("https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js");
+    $doc->addStylesheet("https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
 ?>
 
@@ -24,7 +25,7 @@
 			re_cmd = /^([\w-_]+)$/;
 			return re_cmd.test(value);
 		});
-		
+		L.mapbox.accessToken = '<?php echo $access_token; ?>';
 		map = L.mapbox.map('twukSoWweucw', '<?php echo $this->form->getValue("map_api_key", null, $key); ?>').setView([<?php echo $this->form->getValue('params.center_lat', null, 0); ?>,<?php echo $this->form->getValue('params.center_lng', null, 0); ?>],<?php echo $this->form->getValue('params.zoom', null, 2); ?>);
 		marker = L.marker([<?php echo $this->form->getValue('params.center_lat'); ?>,<?php echo $this->form->getValue('params.center_lng'); ?>], { draggable: true }).addTo(map);
 		marker.on('dragend', function(){

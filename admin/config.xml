@@ -4,6 +4,7 @@
 		<fieldset name="params" label="COM_MAPBOX_OPTIONS_FIELDSET_LEGEND">
 			<field name="default_id" type="menuitem" default="" label="COM_MAPBOX_DEFAULT_ROUTE_ID_LABEL" description="COM_MAPBOX_DEFAULT_ROUTE_ID_DESC" />
 		    <field name="default_api_key" type="text" required="true" filter="cmd" label="COM_MAPBOX_DEFAULT_API_KEY_LABEL" description="COM_MAPBOX_DEFAULT_API_KEY_DESC" />
+            <field name="default_access_token" type="text" required="true" filter="cmd" label="COM_MAPBOX_DEFAULT_ACCESS_TOKEN_LABEL" description="COM_MAPBOX_DEFAULT_ACCESS_TOKEN_DESC" />
 		</fieldset>
 		<fieldset name="images" label="COM_MAPBOX_OPTIONS_FIELDSET_IMAGES">
 			<field name="img_width" default="315" label="COM_MAPBOX_IMAGE_WIDTH_LABEL" description="COM_MAPBOX_IMAGE_WIDTH_DESC" />

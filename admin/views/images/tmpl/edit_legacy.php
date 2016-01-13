@@ -4,8 +4,8 @@
 	JHtml::_('behavior.formvalidation');
 	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
 	$doc = JFactory::getDocument();
-    $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
-    $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+    $doc->addScript("https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js");
+    $doc->addStylesheet("https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
     $doc->addStyleDeclaration("dl.base { width: 50%; float: left; }");
 ?>

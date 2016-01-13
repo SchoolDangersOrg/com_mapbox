@@ -6,9 +6,10 @@
 	$base = $uri->root();
 	$use_templates = (count($this->templates) > 0);
 	$key = $this->map->map_api_key ? $this->map->map_api_key : JComponentHelper::getParams('com_mapbox')->get('default_api_key');
+    $access_token = JComponentHelper::getParams('com_mapbox')->get('default_access_token');
 	$doc = JFactory::getDocument();
-    $doc->addScript("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js");
-    $doc->addStylesheet("https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css");
+    $doc->addScript("https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js");
+    $doc->addStylesheet("https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css");
     $doc->addStyleDeclaration("#twukSoWweucw { position: absolute; width: 100%; height: 100%;}");
 ?>
 
@@ -36,6 +37,7 @@
 				jQuery('#jform_marker_lng').val(data.latlng[1]);
 			});
 		});
+		L.mapbox.accessToken = '<?php echo $access_token; ?>';
 		geocoder = L.mapbox.geocoder('<?php echo $key; ?>');
 		map = L.mapbox.map('twukSoWweucw', '<?php echo $key; ?>').setView([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], <?php echo $this->map->zoom; ?>);
 		marker = L.marker([<?php echo $this->form->getValue('marker_lat', null, 0); ?>, <?php echo $this->form->getValue('marker_lng', null, 0); ?>], {
