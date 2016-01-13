@@ -10,7 +10,7 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-L.mapbox.accessToken = 'pk.eyJ1Ijoic2Nob29sZGFuZ2VycyIsImEiOiIwNWU5NzdkZGFlZTA5MDJmYTY4YmY2Y2M1YmM0YmY0MiJ9.9elPgUKkVhC9S5MmISaxhg';
+L.mapbox.accessToken = 'INSERT YOUR ACCESS TOCKEN HERE';
 window.addEvent('domready', function(){
 
     map = L.mapbox.map('<?php echo $this->data->map_alias; ?>', '<?php echo $this->data->map_api_key; ?>').setView([<?php echo $this->data->params->get('center_lat'); ?>, <?php echo $this->data->params->get('center_lng'); ?>], <?php echo $this->data->params->get('zoom'); ?>);
